@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for testscrapyspider project
+# Scrapy settings for testscrapy project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'testscrapyspider'
+BOT_NAME = 'testscrapy'
 
-SPIDER_MODULES = ['testscrapyspider.spiders']
-NEWSPIDER_MODULE = 'testscrapyspider.spiders'
+SPIDER_MODULES = ['testscrapy.spiders']
+NEWSPIDER_MODULE = 'testscrapy.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'testscrapyspider (+http://www.yourdomain.com)'
+#USER_AGENT = 'testscrapy (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -47,13 +47,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'testscrapyspider.middlewares.TestscrapyspiderSpiderMiddleware': 543,
+#    'testscrapy.middlewares.TestscrapySpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'testscrapyspider.middlewares.TestscrapyspiderDownloaderMiddleware': 543,
+#    'testscrapy.middlewares.TestscrapyDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'testscrapyspider.pipelines.TestscrapyspiderPipeline': 300,
+#    'testscrapy.pipelines.TestscrapyPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
