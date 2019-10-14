@@ -3,7 +3,7 @@ from multiprocessing import Pool
 import requests
 import lxml
 import pymysql
-import time
+import time 
 
 header={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'}
 conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='fh@791204', db='xiaozhu')
