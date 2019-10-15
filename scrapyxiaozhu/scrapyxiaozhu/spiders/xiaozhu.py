@@ -13,15 +13,8 @@ class XiaozhuSpider(scrapy.Spider):
             fzitem=ScrapyxiaozhuItem()
             
             yield scrapy.Request(url=url,callback=self.parse_detail, meta={"fzitem":fzitem})
-        
-        
-        '''next_url=response.xpath(".//a[text()='>']/@href").extract_first()
-         if next_url is not None:
-             yield scrapy.Request(
-                 next_url,
-                 callback=self.parse()
-            )'''
-         
+                
+       
         next_urls = ['http://sy.xiaozhu.com/search-duanzufang-p{}-0/'.format(number) for number in range(2,13)]  
         for next_url in next_urls:
             yield scrapy.Request(next_url, callback=self.parse)    
