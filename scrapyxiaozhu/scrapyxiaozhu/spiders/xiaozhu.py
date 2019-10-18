@@ -12,7 +12,7 @@ class XiaozhuSpider(scrapy.Spider):
         for url in listurls:
             fzitem=ScrapyxiaozhuItem()
             
-            yield scrapy.Request(url=url,callback=self.parse_detail, meta={"fzitem":fzitem})
+            yield scrapy.Request(url=url,callback=self.parse_detail, meta={'fzitem':fzitem})
                 
        
         next_urls = ['http://sy.xiaozhu.com/search-duanzufang-p{}-0/'.format(number) for number in range(2,13)]  
