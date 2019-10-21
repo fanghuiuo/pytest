@@ -12,7 +12,7 @@ class ScrapyxiaozhuPipeline(object):
         self.strsql='insert into fz (fzmc,fzdz,fzjg,fzxm) values (%s,%s,%s,%s)'
     def open_spider(self, spider):
         self.cursor=self.conn.cursor()
-        pass
+        
     
     def process_item(self, item, spider):
         self.cursor.execute(self.strsql,(item['fzmc'],item['fzdz'],item['fzjg'],item['fzxm']))
@@ -23,5 +23,5 @@ class ScrapyxiaozhuPipeline(object):
     def close_spider(self,spider):
         self.cursor.close()
         self.conn.close()
-        pass
+        
 
