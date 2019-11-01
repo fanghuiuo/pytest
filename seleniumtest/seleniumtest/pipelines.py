@@ -8,4 +8,8 @@
 
 class SeleniumtestPipeline(object):
     def process_item(self, item, spider):
+        if isinstance(item, yfItem):
+        pass
+        elif isinstance(item, rqItem):
+        pass 
         return item

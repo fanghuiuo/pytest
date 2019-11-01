@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from seleniumtest.items import SeleniumtestItem
+from seleniumtest.items import yfItem
+from seleniumtest.items import rqItem
 
 class AirspiderSpider(scrapy.Spider):
     name = 'airspider'
@@ -20,7 +21,7 @@ class AirspiderSpider(scrapy.Spider):
         
     def parse_month(self,response):
         cs=response.meta["cs"]
-        yfitem=SeleniumtestItem()
+        yfitem=yfItem()
         tr_list=response.xpath('//tr')
         tr_list.pop(0)
         for tr in tr_list:
@@ -35,10 +36,12 @@ class AirspiderSpider(scrapy.Spider):
             yfitem['co']=tr.xpath('./td[8]/text()').get().strip()
             yfitem['no2']=tr.xpath('./td[9]/text()').get().strip()
             yfitem['o3']=tr.xpath('./td[10]/text()').get().strip()
+            yield yfitem
 
             yfurl=tr.xpath('./td[1]/a/@href').get().strip()
             yield scrapy.Request(url=yfurl,callback=self.parse_day)
 
         
     def parse_day(self,response):
+        rqitem=rqItem()
         pass
