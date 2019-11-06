@@ -27,6 +27,7 @@ class rqItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()    
     rq = scrapy.Field() #日期
+    yf = scrapy.Field() #月份 
     cs = scrapy.Field() #城市
     aqi = scrapy.Field() #空气质量指数
     aqifw = scrapy.Field() #aqi范围

@@ -39,9 +39,30 @@ class AirspiderSpider(scrapy.Spider):
             yield yfitem
 
             yfurl=tr.xpath('./td[1]/a/@href').get().strip()
-            yield scrapy.Request(url=yfurl,callback=self.parse_day)
+            yield scrapy.Request(url=yfurl,callback=self.parse_day,meta={"cs":cs,"yf":yfitem['yf']})
 
         
     def parse_day(self,response):
+        yf=response.meta['yf']
+        cs=response.meta['cs']
         rqitem=rqItem()
+        tr_list=response.xpath('//tr')
+
+        for tr in tr_list:
+            rqitem['yf']=yf
+            rqitem['cs']=cs
+            rqitem['aqi']=tr.xpath('./td[2]/text()').get().strip()
+            rqitem['aqifw']=tr.xpath('./td[3]/text()').get().strip()
+            rqitem['zldj']=tr.xpath('./td[4]/text()').get().strip()
+            rqitem['pm2_5']=tr.xpath('./td[5]/text()').get().strip()
+            rqitem['pm10']=tr.xpath('./td[6]/text()').get().strip()
+            rqitem['so2']=tr.xpath('./td[7]/text()').get().strip()
+            rqitem['co']=tr.xpath('./td[8]/text()').get().strip()
+            rqitem['no2']=tr.xpath('./td[9]/text()').get().strip()
+            rqitem['o3']=tr.xpath('./td[10]/text()').get().strip()
+
+        
+        yield rqitem
+
+
         pass
