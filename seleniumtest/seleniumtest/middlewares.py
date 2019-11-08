@@ -26,7 +26,3 @@ class airMiddleware(object):
         html=self.driver.page_source
         self.driver.quit()
         return scrapy.http.HtmlResponse(url=request.url,body=html.encode('utf-8'),encoding='utf-8',request=request)
-
-
-
-    
