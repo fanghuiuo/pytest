@@ -5,13 +5,13 @@ from seleniumtest.items import rqItem
 
 class AirspiderSpider(scrapy.Spider):
     name = 'airspider'
-    allowed_domains = ['https://www.aqistudy.cn/historydata/']
+    allowed_domains = ['www.aqistudy.cn']
     start_urls = ['https://www.aqistudy.cn/historydata/']
 
 
 
     def parse(self, response):
-        urls=response.xpath('//div[@class="panel panel-info"]/div[2]/ul/li[1]/a/@href').getall().strip()
+        urls=response.xpath('//div[@class="panel panel-info"]/div[2]/ul/li/a/@href').getall()
         
         for url in urls:
             cityurl='https://www.aqistudy.cn/historydata/'+url
@@ -36,6 +36,7 @@ class AirspiderSpider(scrapy.Spider):
             yfitem['co']=tr.xpath('./td[8]/text()').get().strip()
             yfitem['no2']=tr.xpath('./td[9]/text()').get().strip()
             yfitem['o3']=tr.xpath('./td[10]/text()').get().strip()
+            print(yfitem)
             yield yfitem
 
             yfurl=tr.xpath('./td[1]/a/@href').get().strip()
@@ -60,9 +61,4 @@ class AirspiderSpider(scrapy.Spider):
             rqitem['co']=tr.xpath('./td[8]/text()').get().strip()
             rqitem['no2']=tr.xpath('./td[9]/text()').get().strip()
             rqitem['o3']=tr.xpath('./td[10]/text()').get().strip()
-
-        
-        yield rqitem
-
-
-        pass
+            yield rqitem
