@@ -7,7 +7,7 @@
 
 import pymysql
 from seleniumtest.items import yfItem
-from seleniumtest.items import rqItem 
+from seleniumtest.items import rqItem  
 
 
 class SeleniumtestPipeline(object):
