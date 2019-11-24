@@ -14,7 +14,7 @@ class SeleniumtestPipeline(object):
     def __init__(self):
         self.conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='fh@791204', db='air')
         self.yfsql='insert into air_month (yf,cs,aqi,aqifw,zldj,pm2_5,pm10,so2,co,no2,o3) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-        self.qrsql='insert into air_day (rq,yf,cs,aqi,aqifw,zldj,pm2_5,pm10,so2,co,no2,o3) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        self.rqsql='insert into air_day (rq,yf,cs,aqi,zldj,pm2_5,pm10,so2,co,no2,o3) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
     def open_spider(self,spider):
         self.cursor=self.conn.cursor()
 
@@ -24,7 +24,7 @@ class SeleniumtestPipeline(object):
             self.conn.commit()
             return item
         elif isinstance(item,rqItem):
-            self.cursor.execute(self.yfsql,(item['rq'],item['yf'],item['cs'],item['aqi'],item['aqifw'],item['zldj'],item['pm2_5'],item['pm10'],item['so2'],item['co'],item['no2'],item['o3']))
+            self.cursor.execute(self.rqsql,(item['rq'],item['yf'],item['cs'],item['aqi'],item['zldj'],item['pm2_5'],item['pm10'],item['so2'],item['co'],item['no2'],item['o3']))
             self.conn.commit()
             return item
            
