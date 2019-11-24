@@ -37,7 +37,7 @@ class AirspiderSpider(scrapy.Spider):
             yfitem['no2']=tr.xpath('./td[9]/text()').get().strip()
             yfitem['o3']=tr.xpath('./td[10]/text()').get().strip()
             print(yfitem)
-            #yield yfitem
+            yield yfitem
 
             yfurl=tr.xpath('./td[1]/a/@href').get().strip()
             yfurl='https://www.aqistudy.cn/historydata/'+yfurl
