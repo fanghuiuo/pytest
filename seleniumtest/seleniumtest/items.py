@@ -30,7 +30,6 @@ class rqItem(scrapy.Item):
     yf = scrapy.Field() #月份 
     cs = scrapy.Field() #城市
     aqi = scrapy.Field() #空气质量指数
-    aqifw = scrapy.Field() #aqi范围
     zldj = scrapy.Field() #空气质量等级
     pm2_5 = scrapy.Field() #pm2.5
     pm10 = scrapy.Field() #pm10

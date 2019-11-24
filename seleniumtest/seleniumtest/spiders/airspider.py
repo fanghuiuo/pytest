@@ -29,7 +29,7 @@ class AirspiderSpider(scrapy.Spider):
             yfitem['cs']=cs
             yfitem['aqi']=tr.xpath('./td[2]/text()').get().strip()
             yfitem['aqifw']=tr.xpath('./td[3]/text()').get().strip()
-            yfitem['zldj']=tr.xpath('./td[4]/text()').get().strip()
+            yfitem['zldj']=tr.xpath('./td[4]/span/text()').get().strip()
             yfitem['pm2_5']=tr.xpath('./td[5]/text()').get().strip()
             yfitem['pm10']=tr.xpath('./td[6]/text()').get().strip()
             yfitem['so2']=tr.xpath('./td[7]/text()').get().strip()
@@ -37,9 +37,10 @@ class AirspiderSpider(scrapy.Spider):
             yfitem['no2']=tr.xpath('./td[9]/text()').get().strip()
             yfitem['o3']=tr.xpath('./td[10]/text()').get().strip()
             print(yfitem)
-            yield yfitem
+            #yield yfitem
 
             yfurl=tr.xpath('./td[1]/a/@href').get().strip()
+            yfurl='https://www.aqistudy.cn/historydata/'+yfurl
             yield scrapy.Request(url=yfurl,callback=self.parse_day,meta={"cs":cs,"yf":yfitem['yf']})
 
         
@@ -48,17 +49,19 @@ class AirspiderSpider(scrapy.Spider):
         cs=response.meta['cs']
         rqitem=rqItem()
         tr_list=response.xpath('//tr')
+        tr_list.pop(0)
 
         for tr in tr_list:
             rqitem['yf']=yf
             rqitem['cs']=cs
+            rqitem['rq']=tr.xpath('./td[1]/text()').get().strip()
             rqitem['aqi']=tr.xpath('./td[2]/text()').get().strip()
-            rqitem['aqifw']=tr.xpath('./td[3]/text()').get().strip()
-            rqitem['zldj']=tr.xpath('./td[4]/text()').get().strip()
-            rqitem['pm2_5']=tr.xpath('./td[5]/text()').get().strip()
-            rqitem['pm10']=tr.xpath('./td[6]/text()').get().strip()
-            rqitem['so2']=tr.xpath('./td[7]/text()').get().strip()
-            rqitem['co']=tr.xpath('./td[8]/text()').get().strip()
-            rqitem['no2']=tr.xpath('./td[9]/text()').get().strip()
-            rqitem['o3']=tr.xpath('./td[10]/text()').get().strip()
+            rqitem['zldj']=tr.xpath('./td[3]/span/text()').get().strip()
+            rqitem['pm2_5']=tr.xpath('./td[4]/text()').get().strip()
+            rqitem['pm10']=tr.xpath('./td[5]/text()').get().strip()
+            rqitem['so2']=tr.xpath('./td[6]/text()').get().strip()
+            rqitem['co']=tr.xpath('./td[7]/text()').get().strip()
+            rqitem['no2']=tr.xpath('./td[8]/text()').get().strip()
+            rqitem['o3']=tr.xpath('./td[9]/text()').get().strip()
+            print(rqitem)
             yield rqitem
