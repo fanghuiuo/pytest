@@ -9,7 +9,7 @@ from scrapy import signals
 import scrapy
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import time
+import time 
 
 class airMiddleware(object):
     
