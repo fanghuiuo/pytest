@@ -36,5 +36,5 @@ class rqItem(scrapy.Item):
     so2 = scrapy.Field() #so2
     co = scrapy.Field() #co
     no2 = scrapy.Field() #no2
-    o3 = scrapy.Field()  #o3
+    o3 = scrapy.Field()  #o3 
    
