@@ -24,6 +24,7 @@ class AirspiderSpider(scrapy.Spider):
         yfitem=yfItem()
         tr_list=response.xpath('//tr')
         tr_list.pop(0)
+        
         for tr in tr_list:
             yfitem['yf']=tr.xpath('./td[1]/a/text()').get().strip()
             yfitem['cs']=cs
