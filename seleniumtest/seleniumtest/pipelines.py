@@ -12,6 +12,7 @@ from seleniumtest.items import rqItem
 
 class SeleniumtestPipeline(object):
     def __init__(self):
+        
         self.conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='fh@791204', db='air')
         self.yfsql='insert into air_month (yf,cs,aqi,aqifw,zldj,pm2_5,pm10,so2,co,no2,o3) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
         self.rqsql='insert into air_day (rq,yf,cs,aqi,zldj,pm2_5,pm10,so2,co,no2,o3) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
