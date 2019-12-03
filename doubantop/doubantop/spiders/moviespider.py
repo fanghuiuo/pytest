@@ -14,8 +14,10 @@ class MoviespiderSpider(scrapy.Spider):
             item=DoubantopItem()
             yield scrapy.Request(url=url,callback=self.parse_detail,meta={'item':item})
 
-        starturl='https://movie.douban.com/top250?start=0&filter='
-        for i in range(1,11):
-            
+        #nextpage
+        for i in range(0,11):
+            i=i*25
+            nexturl='https://movie.douban.com/top250?start='+str(i)+'&filter='
+            yield scrapy.Request(url=nexturl,callback=self.parse)
     def parse_detail(self,response):
         pass
