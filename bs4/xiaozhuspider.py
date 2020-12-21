@@ -13,7 +13,7 @@ def getfz(url):
     res=requests.get(url,headers=header)
     soup=BeautifulSoup(res.text,'lxml')
     links=soup.select('#page_list > ul > li > a')
-    for link in links:
+    for link in links: 
         href=link.get('href')
         getxx(href)
 def getxx(url):
