@@ -39,7 +39,7 @@ class DbmoviePipeline:
     
 class dataPipline(object):
     def __init__(self):
-        self.con=pymysql.connect(host='127.0.0.1',port=3306,user='root',password='fh@791204',db='pytest')
+        self.con=pymysql.connect(host='127.0.0.1',port=3306,user='root',password='root888',db='pytest')
     def open_spider(self,spider):
         self.cursor=self.con.cursor()
     def process_item(self,item,spider):
