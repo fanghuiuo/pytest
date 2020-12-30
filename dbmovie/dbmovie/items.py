@@ -22,5 +22,6 @@ class DbmovieItem(scrapy.Item):
     jj=scrapy.Field()#简介
     dbpf=scrapy.Field()#评分
     pjrs=scrapy.Field()#评价人数
+    info=scrapy.Field()
     
     pass
