@@ -10,8 +10,7 @@ class DbbookPipeline(object):
             ss=ss+str(tt)        
         jj=ss.split()
         for yy in jj:
-            if '出版社' in yy and len(yy)<5:
-                               
+            if '出版社' in yy and len(yy)<5:                               
                 item['cbs']=jj[(jj.index(yy) + 1)]
                 zzi=''
                 for i in range(1,(jj.index(yy))):                    
