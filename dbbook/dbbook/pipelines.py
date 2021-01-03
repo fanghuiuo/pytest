@@ -14,8 +14,7 @@ class DbbookPipeline(object):
                                
                 item['cbs']=jj[(jj.index(yy) + 1)]
                 zzi=''
-                for i in range(1,(jj.index(yy))):
-                    
+                for i in range(1,(jj.index(yy))):                    
                     zzi=zzi+jj[i]
                 item['author']=zzi
             if '出版年' in yy:
