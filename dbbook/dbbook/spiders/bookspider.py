@@ -11,6 +11,7 @@ class BookspiderSpider(scrapy.Spider):
         tds=response.xpath('//tr[@class="item"]')
         for td in tds:
             bookitem=DbbookItem()
+            self.emptyitem(bookitem)
             bookitem['bookname']=td.xpath('./td[2]/div[1]/a/text()').get().strip()
             bookitem['yjhpj']=td.xpath('./td[2]/p[2]/span/text()').get().strip()
             bookitem['dbpf']=td.xpath('./td[2]/div[2]/span[2]/text()').get().strip()
@@ -29,3 +30,25 @@ class BookspiderSpider(scrapy.Spider):
         newitem['zzjj']=response.xpath('//div[@class="indent "]//div[@class="intro"]//text()').getall()
         yield newitem
         pass
+    def emptyitem(self,item):
+        item['bookname']=' '
+        item['yjhpj']=' '
+        item['pjrs']=' '
+        item['author']=' '
+        item['cbs']=' '
+        item['cbn']=' '
+        item['ys']=' '
+        item['dj']=' '
+        item['zz']=' '
+        item['cs']=' '
+        item['isbn']=' '
+        item['nrjj']=' '
+        item['zzjj']=' '
+        item['cpf']=' '
+        item['yzm']=' '
+        item['fbt']=' '
+        item['yz']=' '
+        item['info']=' '
+
+        return item
+        

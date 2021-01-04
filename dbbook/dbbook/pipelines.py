@@ -27,8 +27,8 @@ class DbbookPipeline(object):
                     item['dj']=jj[(jj.index(yy) + 1)]
             if '装帧' in yy:
                 item['zz']=jj[(jj.index(yy) + 1)]
-            if '丛书' in yy:
-                item['cs']=jj[(jj.index(yy) + 1)]
+            if '丛书' in yy and len(yy)<4:
+                item['cs']=jj[(jj.index(yy) + 1)]                
             if 'ISBN' in yy:
                 item['isbn']=jj[(jj.index(yy) + 1)]
             if '出品方' in yy:
@@ -75,7 +75,7 @@ class dataPipeline(object):
             self.cursor.execute(insql,(item['bookname'],item['yjhpj'],item['dbpf'],item['pjrs'],item['author'],item['cbs'],item['cbn'],item['ys'],item['dj'],item['zz'],item['cs'],item['isbn'],item['nrjj'],item['zzjj'],item['cpf'],item['fbt'],item['yzm'],item['yz']))
             self.con.commit()
         except:
-            self.con.rollback()
+            self.con.rollback()        
         return item,
     def close_spider(self,spider):
         self.cursor.close()
