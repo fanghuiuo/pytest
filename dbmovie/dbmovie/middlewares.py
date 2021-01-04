@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.options import Options
 class DbmovieDownloaderMiddleware:
    
 
-    def process_response(self, request, response, spider):
+    def process_request(self, request, spider):
         op=Options()
         op.add_argument('--headless')
         op.add_argument('--no-sandbox')
