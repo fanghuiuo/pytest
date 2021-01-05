@@ -11,6 +11,7 @@ class DbspiderSpider(scrapy.Spider):
         divs=response.xpath('//div[@class="info"]')
         for div in divs:
             ditem=DbmovieItem()
+            self.emptyitem(ditem)
             ditem['dym']=div.xpath('./div[1]/a/span[1]/text()').get().strip()
             url=div.xpath('./div[1]/a/@href').get().strip()
             ll=response.urljoin(url)
@@ -28,4 +29,19 @@ class DbspiderSpider(scrapy.Spider):
         newitem['pjrs']=response.xpath('//div[@class="rating_sum"]/a/span/text()').get().strip()
         
         yield newitem
+    def emptyitem(self,item):
+        item['dym']=' '
+        item['dy']=' '
+        item['bj']=' '
+        item['zy']=' '
+        item['lx']=' '
+        item['zpgj']=' '
+        item['yy']=' '
+        item['syrq']=' '
+        item['pc']=' '
+        item['ym']=' '
+        item['jj']=' '
+        item['dbpf']=' '
+        item['pjrs']=' '
+        return item
         
