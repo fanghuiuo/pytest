@@ -1,0 +1,12 @@
+# -*-coding:utf-8 -*-
+import pandas as pd
+from sqlalchemy import create_engine
+def mysqltoexcel(strsql):
+    eg=create_engine('mysql+pymysql://root:root888@127.0.0.1:3306/pytest')
+    rows=pd.read_sql_query(strsql,eg)
+    df=pd.DataFrame.from_records(rows)
+    df.to_excel('d:\\air.xlsx',encoding='utf-8',index=None)
+
+if __name__ == "__main__":
+    strsql='select * from weather'
+    mysqltoexcel(strsql)

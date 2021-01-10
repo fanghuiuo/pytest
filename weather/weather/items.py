@@ -9,9 +9,10 @@ import scrapy
 class WeatherItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    city = scrapy.Field() #城市
     rq = scrapy.Field() #日期
     zgqw = scrapy.Field() #最高气温
     zdqw = scrapy.Field() #最低气温
     tq = scrapy.Field() #天气
-    fx = scrapy.Field() #风向
+    fx = scrapy.Field() #风向    
     pass
