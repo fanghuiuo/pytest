@@ -9,7 +9,7 @@ class WeatherspiderSpider(scrapy.Spider):
     
     def parse(self, response):
         lis=response.xpath('//ul[@class="table_list"]//li')
-        cslist=['沈阳','北京','上海','广州','深圳','杭州','西安','三亚','苏州','成都','天津','重庆','武汉','拉萨','昆明','长沙','西宁','乌鲁木齐','合肥']
+        cslist=['沈阳','北京','上海','广州','深圳','杭州','西安','三亚','苏州','成都','天津','重庆','武汉','拉萨','昆明','长沙','西宁','乌鲁木齐','合肥','台北','海口','桂林']
         for li in lis:
             if li.xpath('./a/@href').get() is not None:
                 url=li.xpath('./a/@href').get().strip()
@@ -32,7 +32,9 @@ class WeatherspiderSpider(scrapy.Spider):
             item=WeatherItem()
             self.emptyitem(item)
             item['city']=city
-            item['rq']=li.xpath('./div[1]/text()').get().strip()
+            rqxq=li.xpath('./div[1]/text()').get().strip()
+            item['rq']=rqxq.split()[0]
+            item['xq']=rqxq.split()[1]
             item['zgqw']=li.xpath('./div[2]/text()').get().strip()
             item['zdqw']=li.xpath('./div[3]/text()').get().strip()
             item['tq']=li.xpath('./div[4]/text()').get().strip()
@@ -44,6 +46,7 @@ class WeatherspiderSpider(scrapy.Spider):
     def emptyitem(self,item):
         item['city']=' '
         item['rq']=' '
+        item['xq']=' '
         item['zgqw']=' '
         item['zdqw']=' '
         item['tq']=' '

@@ -11,9 +11,9 @@ class DataPipeling(object):
     def open_spider(self,spider):
         self.cursor=self.con.cursor()
     def process_item(self,item,spider):
-        insql='insert into weather (city,rq,zgqw,zdqw,tq,fx) values (%s,%s,%s,%s,%s,%s)'
+        insql='insert into weather (city,rq,xq,zgqw,zdqw,tq,fx) values (%s,%s,%s,%s,%s,%s,%s)'
         try:
-            self.cursor.execute(insql,(item['city'],item['rq'],item['zgqw'],item['zdqw'],item['tq'],item['fx']))
+            self.cursor.execute(insql,(item['city'],item['rq'],item['xq'],item['zgqw'],item['zdqw'],item['tq'],item['fx']))
             self.con.commit()
         except:
             self.con.rollback()
