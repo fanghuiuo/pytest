@@ -19,10 +19,10 @@ def draw(strsql):
         df.loc[i,'rq']=tt[0]+tt[1]+tt[2]
     print(df)
     df=df.astype(float)
-    df.plot(x='rq',y='zgqw')
+    df.plot(x='rq',y=['zgqw','zdqw'],kind='bar')
     plt.show()
 
 if __name__ == "__main__":
-    strsql='select * from weather'
+    strsql="select * from weather where rq<'2018-01-01'"
     draw(strsql)
     
