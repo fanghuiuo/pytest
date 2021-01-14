@@ -12,17 +12,24 @@ class BookspiderSpider(scrapy.Spider):
         for td in tds:
             bookitem=DbbookItem()
             self.emptyitem(bookitem)
-            bookitem['bookname']=td.xpath('./td[2]/div[1]/a/text()').get().strip()
-            bookitem['yjhpj']=td.xpath('./td[2]/p[2]/span/text()').get().strip()
-            bookitem['dbpf']=td.xpath('./td[2]/div[2]/span[2]/text()').get().strip()
-            bookitem['pjrs']=td.xpath('./td[2]/div[2]/span[3]/text()').get().replace('\n','').replace('(','').replace(')','').strip()
-            url=td.xpath('./td[2]/div[1]/a/@href').get().strip()
-            newurl=response.urljoin(url)
-            yield scrapy.Request(url=newurl,callback=self.xx,meta={'item':bookitem})
-        urls=response.xpath('//div[@class="paginator"]/a/@href').getall()
-        for uu in urls:
-            ll=response.urljoin(uu)
-            yield scrapy.Request(url=ll,callback=self.parse)
+            try:
+                bookitem['bookname']=td.xpath('./td[2]/div[1]/a/text()').get().strip()
+                if td.xpath('./td[2]/p[2]/span/text()') is not None:
+                    bookitem['yjhpj']=td.xpath('./td[2]/p[2]/span/text()').get().strip()
+                bookitem['dbpf']=td.xpath('./td[2]/div[2]/span[2]/text()').get().strip()
+                bookitem['pjrs']=td.xpath('./td[2]/div[2]/span[3]/text()').get().replace('\n','').replace('(','').replace(')','').strip()
+                url=td.xpath('./td[2]/div[1]/a/@href').get().strip()
+                newurl=response.urljoin(url)
+                yield scrapy.Request(url=newurl,callback=self.xx,meta={'item':bookitem})
+            except:
+                return None       
+        if response.xpath('//span[@class="next"]/a/@href') is not None:
+            nexturl=response.xpath('//span[@class="next"]/a/@href').get().strip()
+            newnexturl=response.urljoin(nexturl)
+            yield scrapy.Request(url=newnexturl,callback=self.parse)
+        else:
+            return None
+        
     def xx(self,response):
         newitem=response.meta['item']
         newitem['info']=response.xpath('//div[@id="info"]//text()').getall()
