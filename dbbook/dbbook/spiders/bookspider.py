@@ -14,8 +14,10 @@ class BookspiderSpider(scrapy.Spider):
             self.emptyitem(bookitem)
             try:
                 bookitem['bookname']=td.xpath('./td[2]/div[1]/a/text()').get().strip()
-                if td.xpath('./td[2]/p[2]/span/text()') is not None:
+                if td.xpath('./td[2]/p[2]/span/text()').get() is not None:
                     bookitem['yjhpj']=td.xpath('./td[2]/p[2]/span/text()').get().strip()
+                else:
+                    bookitem['yjhpj']=' '
                 bookitem['dbpf']=td.xpath('./td[2]/div[2]/span[2]/text()').get().strip()
                 bookitem['pjrs']=td.xpath('./td[2]/div[2]/span[3]/text()').get().replace('\n','').replace('(','').replace(')','').strip()
                 url=td.xpath('./td[2]/div[1]/a/@href').get().strip()
@@ -30,13 +32,15 @@ class BookspiderSpider(scrapy.Spider):
         else:
             return None
         
-    def xx(self,response):
-        newitem=response.meta['item']
-        newitem['info']=response.xpath('//div[@id="info"]//text()').getall()
-        newitem['nrjj']=response.xpath('//div[@id="link-report"]//div[@class="intro"]//text()').getall()
-        newitem['zzjj']=response.xpath('//div[@class="indent "]//div[@class="intro"]//text()').getall()
-        yield newitem
-        pass
+    def xx(self,response):        
+        try:
+            newitem=response.meta['item']
+            newitem['info']=response.xpath('//div[@id="info"]//text()').getall()
+            newitem['nrjj']=response.xpath('//div[@id="link-report"]//div[@class="intro"]//text()').getall()
+            newitem['zzjj']=response.xpath('//div[@class="indent "]//div[@class="intro"]//text()').getall()
+            yield newitem
+        except:
+            return None
     def emptyitem(self,item):
         item['bookname']=' '
         item['yjhpj']=' '
