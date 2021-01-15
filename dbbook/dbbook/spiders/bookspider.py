@@ -5,7 +5,7 @@ from dbbook.items import DbbookItem
 class BookspiderSpider(scrapy.Spider):
     name = 'bookspider'
     allowed_domains = ['book.douban.com']
-    start_urls = ['http://book.douban.com/top250/']
+    start_urls = ['https://book.douban.com/top250']
 
     def parse(self, response):
         tds=response.xpath('//tr[@class="item"]')
