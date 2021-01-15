@@ -25,7 +25,7 @@ class BookspiderSpider(scrapy.Spider):
                 yield scrapy.Request(url=newurl,callback=self.xx,meta={'item':bookitem})
             except:
                 return None       
-        if response.xpath('//span[@class="next"]/a/@href') is not None:
+        if response.xpath('//span[@class="next"]/a/@href').get() is not None:
             nexturl=response.xpath('//span[@class="next"]/a/@href').get().strip()
             newnexturl=response.urljoin(nexturl)
             yield scrapy.Request(url=newnexturl,callback=self.parse)
