@@ -15,7 +15,7 @@ class DbmovieDownloaderMiddleware:
         op.add_argument('--disable-gpu')
         self.driver=webdriver.Chrome(chrome_options=op)
         if not request.url=='movie.douban.com/top250':
-            self.driver.implicitly_wait(10)
+            self.driver.implicitly_wait(30)
             self.driver.get(request.url)
             html=self.driver.page_source
             self.driver.quit()        
