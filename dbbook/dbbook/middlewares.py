@@ -11,7 +11,7 @@ class DbbookDownloaderMiddleware:
         op.add_argument('--disable-gpu')
         driver=selenium.webdriver.Chrome(chrome_options=op)
         if not request.url=='https://book.douban.com/top250':
-            driver.implicitly_wait(10)
+            driver.implicitly_wait(30)
             driver.get(request.url)
             html=driver.page_source
             driver.quit()
