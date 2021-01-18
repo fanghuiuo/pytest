@@ -19,6 +19,7 @@ class DbmovietopItem(scrapy.Item):
     dbpf=scrapy.Field()#豆瓣评分
     pfzb=scrapy.Field()#评分占比
     imdbpf=scrapy.Field()#imdb评分
+    imdbpjrs=scrapy.Field()#imdb评价人数
     pjrs=scrapy.Field()#评价人数
     hjqk=scrapy.Field()#获奖情况
     cybq=scrapy.Field()#豆瓣成员常用标签
