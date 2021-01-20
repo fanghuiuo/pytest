@@ -4,7 +4,7 @@ from dbmovietop.items import DbmovietopItem
 
 class DbmovietopspiderSpider(scrapy.Spider):
     name = 'dbmovietopspider'
-    allowed_domains = ['movie.douban.com','www.imdb.com']
+    allowed_domains = ['movie.douban.com','www.imdb.com'] # 允许多个网站
     start_urls = ['http://movie.douban.com/top250/']
 
     def parse(self, response):
@@ -35,25 +35,15 @@ class DbmovietopspiderSpider(scrapy.Spider):
             for imdburl in urls:
                 if 'imdb' in imdburl:                    
                     yield scrapy.Request(url=imdburl,callback=self.getimdb,meta={'item':item,'url':detailurl})
-                
-                
+               
         else:
-            yield item       
-            
-        
-        
-        '''strinfo=''        
-        for i in range(0,len(info)):
-            strinfo=strinfo+str(info[i])
-        list=strinfo.split('\n')
-        print(list)'''
-        #yield item
-    def getimdb(self,response):
+            yield item   
+    def getimdb(self,response): 
         item=response.meta['item']
         url=response.meta['url']
         item['imdbpf']=response.xpath('//div[@class="ratingValue"]/strong/span/text()').get().strip()
         item['imdbpjrs']=response.xpath('//div[@class="imdbRating"]/a/span/text()').get().strip()        
-        yield scrapy.Request(url=url,callback=self.detail,meta={'item':item},,dont_filter=True)
+        yield scrapy.Request(url=url,callback=self.detail,meta={'item':item},dont_filter=True) # 防止scrapy过滤重复网址
     def emptyitem(self,item):
         item['dym']=' '
         item['yjhpj']=' '
