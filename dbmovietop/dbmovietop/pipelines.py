@@ -29,6 +29,7 @@ class DbmovietopPipeline:
                 item['ym']=nr.split(':')[1]
                               
         jqjj=item['jqjj']
+        
                 
         print(list)
         return item
