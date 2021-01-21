@@ -26,7 +26,9 @@ class DbmovietopPipeline:
             if '片长' in nr:
                 item['pc']=nr.split(':')[1]
             if '又名' in nr:
-                item['ym']=nr.split(':')[1]              
+                item['ym']=nr.split(':')[1]
+                              
+        jqjj=item['jqjj']
                 
         print(list)
         return item
