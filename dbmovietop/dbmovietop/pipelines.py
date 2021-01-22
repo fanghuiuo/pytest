@@ -1,4 +1,4 @@
-
+import pymysql
 class DbmovietopPipeline:
     def process_item(self, item, spider):
         info=item['info']
@@ -29,10 +29,27 @@ class DbmovietopPipeline:
                 item['ym']=nr.split(':')[1]
                               
         jqjj=item['jqjj']
+        jq=''
+        for jj in jqjj:
+            jq=jq+jj.strip()
+        if '展开全部' in jq:
+            item['jqjj']=jq.split('展开全部')[1]
+        else:
+            item['jqjj']=jq
         
-                
-        print(list)
+        pfzb=item['pfzb']     
+        
+        print(item)
         return item
 class datapipeline(object):
+    def open_spider(self,item,spider):
+        self.con=pymysql.connect(host='127.0.0.1',user='root',password='root888',db='pytest')
+        self.cursor=self.con.cursor()
     def process_item(self,item,spider):
+        insql=''
+        self.cursor.execute(insql,(item['dym']))
         return item
+    def close_spider(self,item,spider):
+        self.cursor.close()
+        self.con.close()
+        

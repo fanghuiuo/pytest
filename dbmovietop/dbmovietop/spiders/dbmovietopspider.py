@@ -30,6 +30,7 @@ class DbmovietopspiderSpider(scrapy.Spider):
         item=response.meta['item']
         item['info']=response.xpath('//div[@id="info"]//text()').getall()
         item['jqjj']=response.xpath('//div[@id="link-report"]//span/text()').getall()
+        item['pfzb']=response.xpath('//div[@class="ratings-on-weight"]//div//text()').getall()
         detailurl=response.url
         if item['imdbpf']==' ':                        
             urls=response.xpath('//div[@id="info"]//a/@href').getall()           
