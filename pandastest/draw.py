@@ -23,6 +23,6 @@ def draw(strsql):
     plt.show()
 
 if __name__ == "__main__":
-    strsql="select * from weather where rq<'2018-01-01'"
+    strsql="SELECT * FROM weather where city='沈阳' and rq>'2020-06-01' and rq <'2020-06-30'"
     draw(strsql)
     
