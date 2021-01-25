@@ -37,8 +37,19 @@ class DbmovietopPipeline:
         else:
             item['jqjj']=jq
         
-        pfzb=item['pfzb']     
-        
+        pfzb=item['pfzb'] 
+        zb=''
+        for ss in pfzb:
+            if '星' in ss:
+                zb=zb+ss.rstrip() 
+            if '%' in ss:
+                zb=zb+ss           
+        listpfzb=zb.split('\n')
+        listpfzb.pop(0)
+        ll=''
+        for tt in listpfzb:
+            ll=ll+tt.strip()+':'
+        item['pfzb']=ll[0:-1]
         print(item)
         return item
 class datapipeline(object):
