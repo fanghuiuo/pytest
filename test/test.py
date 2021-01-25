@@ -1,8 +1,9 @@
 #-*-coding:'utf-8'-*-
-import pandas as pd
-import matplotlib.pyplot as plt
-from sqlalchemy import create_engine
 import matplotlib
+import matplotlib.pyplot as plt
+import pandas as pd
+from sqlalchemy import create_engine
+
 
 def test(strsql):
     ce=create_engine('mysql+pymysql://root:root888@127.0.0.1:3306/pytest')
