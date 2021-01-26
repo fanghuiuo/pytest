@@ -2,13 +2,15 @@
 import pandas as pd
 from sqlalchemy import create_engine
 
+
 def mysqltoexcel(strsql):
-    eg=create_engine('mysql+pymysql://root:root888@127.0.0.1:3306/book')
-    rows=pd.read_sql_query(strsql,eg)
-    df=pd.DataFrame.from_records(rows)
-    df.to_excel('d:\\testss.xlsx',index=None,encoding='utf-8')
-    df.to_csv('d:\\tes.csv',index=None,encoding='utf-8')
-    
+    eg = create_engine('mysql+pymysql://root:root888@127.0.0.1:3306/book')
+    rows = pd.read_sql_query(strsql, eg)
+    df = pd.DataFrame.from_records(rows)
+    df.to_excel('d:\\testss.xlsx', index=None, encoding='utf-8')
+    df.to_csv('d:\\tes.csv', index=None, encoding='utf-8')
+
+
 if __name__ == "__main__":
-    strsql='select * from dbbook'
+    strsql = 'select * from dbbook'
     mysqltoexcel(strsql)
