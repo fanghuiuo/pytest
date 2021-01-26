@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 import scrapy
-from weather.items import WeatherItem
+from ..items import WeatherItem
 
 
 class WeatherspiderSpider(scrapy.Spider):

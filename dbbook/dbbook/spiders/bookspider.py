@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 import scrapy
-from dbbook.items import DbbookItem
+from ..items import DbbookItem
 
 
 class BookspiderSpider(scrapy.Spider):

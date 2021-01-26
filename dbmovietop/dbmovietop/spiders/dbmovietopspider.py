@@ -1,5 +1,5 @@
 import scrapy
-from dbmovietop.items import DbmovietopItem
+from ..items import DbmovietopItem
 
 
 class DbmovietopspiderSpider(scrapy.Spider):
