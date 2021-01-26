@@ -10,6 +10,7 @@ class DbbookDownloaderMiddleware:
         op.add_argument('--headless')
         op.add_argument('--no-sandbox')
         op.add_argument('--disable-gpu')
+        html = None
         driver = selenium.webdriver.Chrome(chrome_options=op)
         if not request.url == 'https://book.douban.com/top250':
             driver.implicitly_wait(30)

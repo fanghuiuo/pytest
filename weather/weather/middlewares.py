@@ -10,6 +10,7 @@ class WeatherDownloaderMiddleware:
         op.add_argument('--no-sandbox')
         op.add_argument('--disable-gpu')
         driver = selenium.webdriver.Chrome(chrome_options=op)
+        html = None
         if request.url != 'lishi.tianqi.com/shenyang/index.html':
             driver.implicitly_wait(10)
             driver.get(request.url)
