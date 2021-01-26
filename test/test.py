@@ -1,5 +1,5 @@
-#-*-coding:'utf-8'-*-
-import matplotlib
+# -*-coding:'utf-8'-*-
+
 import matplotlib.pyplot as plt
 import pandas as pd
 from sqlalchemy import create_engine
@@ -15,20 +15,20 @@ def test(strsql):
         df.loc[i, 'zgqw'] = float(str(df.loc[i, 'zgqw']).split('℃')[0])
         df.loc[i, 'zdqw'] = float(str(df.loc[i, 'zdqw']).split('℃')[0])
     print(df)
-    #df.plot(x='yzm',y='pjrs',kind='bar',title='测试用')
+    # df.plot(x='yzm',y='pjrs',kind='bar',title='测试用')
     plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
-    #plt.xticks(df['yzm'],df['yzm'], rotation=90)
+    # plt.xticks(df['yzm'],df['yzm'], rotation=90)
     #plt.xlabel("yzm")
     # 画图（折线图）
     # 设置画布大小及比例
     fig = plt.figure(dpi=128, figsize=(8, 6))
     # 设置最高温最低温线条颜色及宽度等信息
-    #L1,=plt.plot(df['rq'],df['zdqw'],label='最低气温')
+    # L1,=plt.plot(df['rq'],df['zdqw'],label='最低气温')
     p1, = plt.plot(df['rq'], df['zdqw'], label='最低气温')
-    #L2,=plt.plot(df['rq'],df['zgqw'],label='最高气温')
+    # L2,=plt.plot(df['rq'],df['zgqw'],label='最高气温')
     p2, = plt.plot(df['rq'], df['zgqw'], label='最高气温')
-    #plt.legend(handles=[L1,L2],labels=['最高气温','最低气温'], loc='best')# 添加图例
+    # plt.legend(handles=[L1,L2],labels=['最高气温','最低气温'], loc='best')# 添加图例
     plt.legend(handles=[p1, p2], labels=['最高气温', '最低气温'], loc='best')  # 添加图例
     # 图表格式
     # 设置图形格式

@@ -1,3 +1,4 @@
+# -*-coding:utf-8 *-*
 import matplotlib.pyplot as plt
 import pandas as pd
 from sqlalchemy import create_engine
@@ -10,19 +11,18 @@ def drawplot(strsql):
     for i in range(0, len(df)):
         df.loc[i, 'zgqw'] = float(str(df.loc[i, 'zgqw']).split('℃')[0])
         df.loc[i, 'zdqw'] = float(str(df.loc[i, 'zdqw']).split('℃')[0])
-
     fig = plt.figure(dpi=128, figsize=(10, 5))
-
     p1, = plt.plot(df['rq'], df['zgqw'])
     p2, = plt.plot(df['rq'], df['zdqw'])
+    plt.legend(handles=[p1, p2], labels=['最高气温', '最低气温'], loc='best')
     plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
-    plt.legend(handles=[p1, p2], labels=['最高气温', '最低气温'], loc='best')
-    fig.autofmt_xdate(rotation=45)
+    plt.title('沈阳市6月气温走势')
     plt.xlabel('日期')
     plt.ylabel('气温')
-    plt.title('沈阳市6月气温走势')
+    fig.autofmt_xdate(rotation=45)
     plt.show()
+
     print(df)
 
 
