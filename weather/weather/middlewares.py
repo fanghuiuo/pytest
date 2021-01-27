@@ -17,7 +17,4 @@ class WeatherDownloaderMiddleware:
             html = driver.page_source
             driver.quit()
 
-        return scrapy.http.HtmlResponse(url=request.url,
-                                        body=html.encode('utf-8'),
-                                        encoding='utf-8',
-                                        request=request)
+        return scrapy.http.HtmlResponse(url=request.url, body=html.encode('utf-8'), encoding='utf-8', request=request)

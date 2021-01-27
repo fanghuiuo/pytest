@@ -9,11 +9,7 @@ class WeatherPipeline(object):
 
 class DataPipeling(object):
     def __init__(self):
-        self.con = pymysql.Connect(host='127.0.0.1',
-                                   port=3306,
-                                   user='root',
-                                   password='root888',
-                                   db='pytest')
+        self.con = pymysql.Connect(host='127.0.0.1', port=3306, user='root', password='root888', db='pytest')
 
     def open_spider(self, spider):
         self.cursor = self.con.cursor()
@@ -21,11 +17,9 @@ class DataPipeling(object):
     def process_item(self, item, spider):
         insql = 'insert into weather (city,rq,xq,zgqw,zdqw,tq,fx) values (%s,%s,%s,%s,%s,%s,%s)'
         try:
-            self.cursor.execute(
-                insql, (item['city'], item['rq'], item['xq'], item['zgqw'],
-                        item['zdqw'], item['tq'], item['fx']))
+            self.cursor.execute(insql, (item['city'], item['rq'], item['xq'], item['zgqw'], item['zdqw'], item['tq'], item['fx']))
             self.con.commit()
-        except:
+        except Exception:
             self.con.rollback()
         return item
 

@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 import pymysql
 
 
@@ -40,8 +40,7 @@ class DbbookPipeline(object):
                     item['yzm'] = ''
                     for i in range(1, 10):
                         if ':' not in jj[jj.index(yy) + i]:
-                            item['yzm'] = item['yzm'] + ' ' + jj[jj.index(yy) +
-                                                                 i]
+                            item['yzm'] = item['yzm'] + ' ' + jj[jj.index(yy) + i]
                         else:
                             break
                     print(item['yzm'])
@@ -65,17 +64,13 @@ class DbbookPipeline(object):
             else:
                 item['zzjj'] = kk
             return item
-        except:
+        except Exception:
             return None
 
 
 class dataPipeline(object):
     def __init__(self):
-        self.con = pymysql.connect(host='127.0.0.1',
-                                   port=3306,
-                                   user='root',
-                                   password='root888',
-                                   db='book')
+        self.con = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='root888', db='book')
 
     def open_spider(self, spider):
         self.cursor = self.con.cursor()
@@ -83,12 +78,7 @@ class dataPipeline(object):
     def process_item(self, item, spider):
         insql = 'insert into dbbook (bookname,yjhpj,dbpf,pjrs,author,cbs,cbn,ys,dj,zz,cs,isbn,nrjj,zzjj,cpf,fbt,yzm,yz) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
         try:
-            self.cursor.execute(
-                insql, (item['bookname'], item['yjhpj'], item['dbpf'],
-                        item['pjrs'], item['author'], item['cbs'], item['cbn'],
-                        item['ys'], item['dj'], item['zz'], item['cs'],
-                        item['isbn'], item['nrjj'], item['zzjj'], item['cpf'],
-                        item['fbt'], item['yzm'], item['yz']))
+            self.cursor.execute(insql, (item['bookname'], item['yjhpj'], item['dbpf'], item['pjrs'], item['author'], item['cbs'], item['cbn'], item['ys'], item['dj'], item['zz'], item['cs'], item['isbn'], item['nrjj'], item['zzjj'], item['cpf'], item['fbt'], item['yzm'], item['yz']))
             self.con.commit()
         except Exception:
             self.con.rollback()

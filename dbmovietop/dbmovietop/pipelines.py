@@ -58,10 +58,7 @@ class DbmovietopPipeline:
 
 class datapipeline(object):
     def open_spider(self, item, spider):
-        self.con = pymysql.connect(host='127.0.0.1',
-                                   user='root',
-                                   password='root888',
-                                   db='pytest')
+        self.con = pymysql.connect(host='127.0.0.1', user='root', password='root888', db='pytest')
         self.cursor = self.con.cursor()
 
     def process_item(self, item, spider):

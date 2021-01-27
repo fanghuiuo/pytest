@@ -25,28 +25,19 @@ class DbmovietopspiderSpider(scrapy.Spider):
             yield scrapy.Request(url=xxurl,callback=self.detail,meta={'item':movieitem})'''
         movieitem = DbmovietopItem()
         movieitem = self.emptyitem(movieitem)
-        yield scrapy.Request(url='https://movie.douban.com/subject/1292052/',
-                             callback=self.detail,
-                             meta={'item': movieitem})
+        yield scrapy.Request(url='https://movie.douban.com/subject/1292052/', callback=self.detail, meta={'item': movieitem})
 
     def detail(self, response):
         item = response.meta['item']
         item['info'] = response.xpath('//div[@id="info"]//text()').getall()
-        item['jqjj'] = response.xpath(
-            '//div[@id="link-report"]//span/text()').getall()
-        item['pfzb'] = response.xpath(
-            '//div[@class="ratings-on-weight"]//div//text()').getall()
+        item['jqjj'] = response.xpath('//div[@id="link-report"]//span/text()').getall()
+        item['pfzb'] = response.xpath('//div[@class="ratings-on-weight"]//div//text()').getall()
         detailurl = response.url
         if item['imdbpf'] == ' ':
             urls = response.xpath('//div[@id="info"]//a/@href').getall()
             for imdburl in urls:
                 if 'imdb' in imdburl:
-                    yield scrapy.Request(url=imdburl,
-                                         callback=self.getimdb,
-                                         meta={
-                                             'item': item,
-                                             'url': detailurl
-                                         })
+                    yield scrapy.Request(url=imdburl, callback=self.getimdb, meta={'item': item, 'url': detailurl})
 
         else:
             yield item
@@ -54,14 +45,9 @@ class DbmovietopspiderSpider(scrapy.Spider):
     def getimdb(self, response):
         item = response.meta['item']
         url = response.meta['url']
-        item['imdbpf'] = response.xpath(
-            '//div[@class="ratingValue"]/strong/span/text()').get().strip()
-        item['imdbpjrs'] = response.xpath(
-            '//div[@class="imdbRating"]/a/span/text()').get().strip()
-        yield scrapy.Request(url=url,
-                             callback=self.detail,
-                             meta={'item': item},
-                             dont_filter=True)  # 防止scrapy过滤重复网址
+        item['imdbpf'] = response.xpath('//div[@class="ratingValue"]/strong/span/text()').get().strip()
+        item['imdbpjrs'] = response.xpath('//div[@class="imdbRating"]/a/span/text()').get().strip()
+        yield scrapy.Request(url=url, callback=self.detail, meta={'item': item}, dont_filter=True)  # 防止scrapy过滤重复网址
 
     def emptyitem(self, item):
         item['dym'] = ' '
