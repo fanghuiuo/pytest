@@ -9,6 +9,7 @@ class DbmovietopPipeline:
             strinfo = strinfo + str(info[i])
         list = strinfo.split('\n')
         for nr in list:
+            nr = nr.strip()
             if '导演' in nr and nr.split(':')[0] == '导演':
                 item['dy'] = nr.split(':')[1]
             if '编剧' in nr:
@@ -52,20 +53,31 @@ class DbmovietopPipeline:
         for tt in listpfzb:
             ll = ll + tt.strip() + ':'
         item['pfzb'] = ll[0:-1]
+
+        cybqlist = item['cybq']
+        cybq = ''
+        for tt in cybqlist:
+            cybq = cybq + tt.strip() + ':'
+        item['cybq'] = cybq[0:-1]
+        item['info'] = ''
         print(item)
         return item
 
 
 class datapipeline(object):
-    def open_spider(self, item, spider):
+    def open_spider(self, spider):
         self.con = pymysql.connect(host='127.0.0.1', user='root', password='root888', db='pytest')
         self.cursor = self.con.cursor()
 
     def process_item(self, item, spider):
-        insql = ''
-        self.cursor.execute(insql, (item['dym']))
+        insql = 'insert into dbmovie (dym,dy,bj,zy,lx,zpgj,yy,syrq,pc,ym,jqjj,dbpf,pjrs,gfwz,pfzb,imdbpf,hjqk,cybq,yjhpj,imdbpjrs) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        try:
+            self.cursor.execute(insql, (item['dym'], item['dy'], item['bj'], item['zy'], item['lx'], item['zpgj'], item['yy'], item['syrq'], item['pc'], item['ym'], item['jqjj'], item['dbpf'], item['pjrs'], item['gfwz'], item['pfzb'], item['imdbpf'], item['hjqk'], item['cybq'], item['yjhpj'], item['imdbpjrs']))
+            self.con.commit()
+        except Exception:
+            self.con.rollback()
         return item
 
-    def close_spider(self, item, spider):
+    def close_spider(self, spider):
         self.cursor.close()
         self.con.close()

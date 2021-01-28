@@ -9,29 +9,31 @@ class DbmovietopspiderSpider(scrapy.Spider):
 
     def parse(self, response):
         divs = response.xpath('//div[@class="info"]')
-        '''for div in divs:
-            movieitem=DbmovietopItem()
+        for div in divs:
+            movieitem = DbmovietopItem()
             print(movieitem)
-            movieitem=self.emptyitem(movieitem)
-            movieitem['dym']=div.xpath('./div[1]/a/span[1]/text()').get().strip()
+            movieitem = self.emptyitem(movieitem)
+            movieitem['dym'] = div.xpath('./div[1]/a/span[1]/text()').get().strip()
             if div.xpath('./div[2]/p[2]/span/text()').get() is not None:
-                movieitem['yjhpj']=div.xpath('./div[2]/p[2]/span/text()').get().strip()
+                movieitem['yjhpj'] = div.xpath('./div[2]/p[2]/span/text()').get().strip()
             else:
-                movieitem['yjhpj']=' '
-            movieitem['dbpf']=div.xpath('./div[2]/div/span[2]/text()').get().strip()
-            movieitem['pjrs']=div.xpath('./div[2]/div/span[4]/text()').get().strip()
-            url=div.xpath('./div[1]/a/@href').get().strip()
-            xxurl=response.urljoin(url)
-            yield scrapy.Request(url=xxurl,callback=self.detail,meta={'item':movieitem})'''
-        movieitem = DbmovietopItem()
-        movieitem = self.emptyitem(movieitem)
-        yield scrapy.Request(url='https://movie.douban.com/subject/1292052/', callback=self.detail, meta={'item': movieitem})
+                movieitem['yjhpj'] = ' '
+            movieitem['dbpf'] = div.xpath('./div[2]/div/span[2]/text()').get().strip()
+            movieitem['pjrs'] = div.xpath('./div[2]/div/span[4]/text()').get().strip()
+            url = div.xpath('./div[1]/a/@href').get().strip()
+            xxurl = response.urljoin(url)
+            yield scrapy.Request(url=xxurl, callback=self.detail, meta={'item': movieitem})
+        if response.xpath('//span[@class="next"]/a/@href').get() is not None:
+            nexturl = response.xpath('//span[@class="next"]/a/@href').get().strip()
+            newnexturl = response.urljoin(nexturl)
+            yield scrapy.Request(url=newnexturl, callback=self.parse)
 
     def detail(self, response):
         item = response.meta['item']
         item['info'] = response.xpath('//div[@id="info"]//text()').getall()
         item['jqjj'] = response.xpath('//div[@id="link-report"]//span/text()').getall()
         item['pfzb'] = response.xpath('//div[@class="ratings-on-weight"]//div//text()').getall()
+        item['cybq'] = response.xpath('//div[@class="tags-body"]//a/text()').getall()
         detailurl = response.url
         if item['imdbpf'] == ' ':
             urls = response.xpath('//div[@id="info"]//a/@href').getall()

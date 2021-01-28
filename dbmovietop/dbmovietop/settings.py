@@ -12,7 +12,6 @@ BOT_NAME = 'dbmovietop'
 SPIDER_MODULES = ['dbmovietop.spiders']
 NEWSPIDER_MODULE = 'dbmovietop.spiders'
 
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'dbmovietop (+http://www.yourdomain.com)'
 
@@ -38,9 +37,9 @@ COOKIES_ENABLED = False
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
-   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-   'Accept-Language': 'en',
-   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edg/87.0.664.75',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'en',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edg/87.0.664.75',
 }
 
 # Enable or disable spider middlewares
@@ -65,6 +64,7 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'dbmovietop.pipelines.DbmovietopPipeline': 300,
+    'dbmovietop.pipelines.datapipeline': 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
