@@ -5,7 +5,7 @@ from ..items import DbmovietopItem
 class DbmovietopspiderSpider(scrapy.Spider):
     name = 'dbmovietopspider'
     allowed_domains = ['movie.douban.com', 'www.imdb.com']  # 允许多个网站
-    start_urls = ['http://movie.douban.com/top250/']
+    start_urls = ['https://movie.douban.com/top250']
 
     def parse(self, response):
         divs = response.xpath('//div[@class="info"]')
@@ -23,17 +23,14 @@ class DbmovietopspiderSpider(scrapy.Spider):
             url = div.xpath('./div[1]/a/@href').get().strip()
             xxurl = response.urljoin(url)
             yield scrapy.Request(url=xxurl, callback=self.detail, meta={'item': movieitem})
-        if response.xpath('//span[@class="next"]/a/@href').get() is not None:
+        '''if response.xpath('//span[@class="next"]/a/@href').get() is not None:
             nexturl = response.xpath('//span[@class="next"]/a/@href').get().strip()
             newnexturl = response.urljoin(nexturl)
-            yield scrapy.Request(url=newnexturl, callback=self.parse)
+            yield scrapy.Request(url=newnexturl, callback=self.parse)'''
 
     def detail(self, response):
         item = response.meta['item']
-        item['info'] = response.xpath('//div[@id="info"]//text()').getall()
-        item['jqjj'] = response.xpath('//div[@id="link-report"]//span/text()').getall()
-        item['pfzb'] = response.xpath('//div[@class="ratings-on-weight"]//div//text()').getall()
-        item['cybq'] = response.xpath('//div[@class="tags-body"]//a/text()').getall()
+
         detailurl = response.url
         if item['imdbpf'] == ' ':
             urls = response.xpath('//div[@id="info"]//a/@href').getall()
@@ -42,6 +39,10 @@ class DbmovietopspiderSpider(scrapy.Spider):
                     yield scrapy.Request(url=imdburl, callback=self.getimdb, meta={'item': item, 'url': detailurl})
 
         else:
+            item['info'] = response.xpath('//div[@id="info"]//text()').getall()
+            item['jqjj'] = response.xpath('//div[@id="link-report"]//span/text()').getall()
+            item['pfzb'] = response.xpath('//div[@class="ratings-on-weight"]//div//text()').getall()
+            item['cybq'] = response.xpath('//div[@class="tags-body"]//a/text()').getall()
             yield item
 
     def getimdb(self, response):

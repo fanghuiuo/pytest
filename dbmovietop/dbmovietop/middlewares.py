@@ -9,6 +9,8 @@ class DbmovietopDownloaderMiddleware:
         op.add_argument('--headless')
         op.add_argument('--disable-gpu')
         op.add_argument('--no-sandbox')
+        op.add_argument('--ignore-certificate-errors')
+        op.add_argument('--ignore-ssl-errors')
         driver = selenium.webdriver.Chrome(chrome_options=op)
         html = None
         if request.url != 'https://movie.douban.com/top250':
