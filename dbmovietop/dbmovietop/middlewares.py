@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+@File    :   middlewares.py
+@Time    :   2021/01/30 16:36:38
+@Author  :   Jack Fang
+@Version :   1.0
+'''
+# import lib
+
 import selenium
 from selenium.webdriver.chrome.options import Options
 import scrapy

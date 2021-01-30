@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+@File    :   drawbar.py
+@Time    :   2021/01/30 16:37:06
+@Author  :   Jack Fang
+@Version :   1.0
+'''
+# import lib
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+@File    :   dbmovietopspider.py
+@Time    :   2021/01/30 16:36:13
+@Author  :   Jack Fang
+@Version :   1.0
+'''
+# import lib
+
 import scrapy
 from ..items import DbmovietopItem
 

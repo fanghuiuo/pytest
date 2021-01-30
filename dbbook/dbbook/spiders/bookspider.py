@@ -1,4 +1,14 @@
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+@File    :   bookspider.py
+@Time    :   2021/01/30 16:35:19
+@Author  :   Jack Fang
+@Version :   1.0
+'''
+# import lib
+
+
 import scrapy
 from ..items import DbbookItem
 

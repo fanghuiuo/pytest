@@ -1,4 +1,13 @@
-# -*-coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+@File    :   pipelines.py
+@Time    :   2021/01/30 16:38:14
+@Author  :   Jack Fang
+@Version :   1.0
+'''
+# import lib
+
 import pymysql
 
 

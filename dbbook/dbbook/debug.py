@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+@File    :   debug.py
+@Time    :   2021/01/30 16:33:30
+@Author  :   Jack Fang
+@Version :   1.0
+'''
+# import lib
+
 from scrapy.cmdline import execute
 import os
 # 获取当前文件路径

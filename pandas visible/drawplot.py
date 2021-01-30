@@ -1,4 +1,13 @@
-# -*-coding:utf-8 *-*
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+@File    :   drawplot.py
+@Time    :   2021/01/30 16:37:17
+@Author  :   Jack Fang
+@Version :   1.0
+'''
+# import lib
+
 import matplotlib.pyplot as plt
 import pandas as pd
 from sqlalchemy import create_engine
