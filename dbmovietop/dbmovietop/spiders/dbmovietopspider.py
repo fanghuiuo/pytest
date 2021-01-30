@@ -23,10 +23,10 @@ class DbmovietopspiderSpider(scrapy.Spider):
             url = div.xpath('./div[1]/a/@href').get().strip()
             xxurl = response.urljoin(url)
             yield scrapy.Request(url=xxurl, callback=self.detail, meta={'item': movieitem})
-        '''if response.xpath('//span[@class="next"]/a/@href').get() is not None:
+        if response.xpath('//span[@class="next"]/a/@href').get() is not None:
             nexturl = response.xpath('//span[@class="next"]/a/@href').get().strip()
             newnexturl = response.urljoin(nexturl)
-            yield scrapy.Request(url=newnexturl, callback=self.parse)'''
+            yield scrapy.Request(url=newnexturl, callback=self.parse)
 
     def detail(self, response):
         item = response.meta['item']
