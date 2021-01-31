@@ -29,7 +29,12 @@ class DbmovietopPipeline:
             if '类型' in nr:
                 item['lx'] = nr.split(':')[1]
             if '官方网站' in nr:
-                item['gfwz'] = nr.split(':')[1]
+                lnr = nr.split(':')
+                if len(lnr) == 2:
+                    item['gfwz'] = lnr[1]
+                if len(lnr) == 3:
+                    item['gfwz'] = lnr[1] + lnr[2]
+
             if '制片国家' in nr:
                 item['zpgj'] = nr.split(':')[1]
             if '语言' in nr:
