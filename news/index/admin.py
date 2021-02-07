@@ -1,4 +1,8 @@
 from django.contrib import admin
 from .models import news
-admin.site.register(news)
-# Register your models here.
+
+
+@admin.register(news)
+class newsadmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'content', 'addtime', 'changetime', 'is_del')
+    ordering = ('id', )
