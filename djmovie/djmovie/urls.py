@@ -1,4 +1,4 @@
-"""djbook URL Configuration
+"""djmovie URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -18,5 +18,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD:djbook/djbook/urls.py
     path('', include('book.urls')),
+=======
+    path('', include('index.urls')),
+>>>>>>> 9b9da5644a54384ffe406a3f818e4937e75cf0ce:djmovie/djmovie/urls.py
 ]
