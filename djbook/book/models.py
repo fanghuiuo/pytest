@@ -22,3 +22,6 @@ class Dbbook(models.Model):
     yz = models.CharField(max_length=200, blank=True, null=True)
     addtime = models.DateTimeField(auto_now_add=True)
     changetime = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.bookname
