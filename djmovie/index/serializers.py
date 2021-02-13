@@ -1,9 +1,8 @@
-from django.db import models
 from rest_framework import serializers
-from .models import Dbbook
+from .models import Dbmovie
 
 
-class bookserializers(serializers.HyperlinkedModelSerializer):
+class movieserializer(serializers.ModelSerializer):
     class Meta:
-        model = Dbbook
-        fields = ['id', 'bookname', 'yjhpj']
+        model = Dbmovie
+        fields = '__all__'

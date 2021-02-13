@@ -12,7 +12,7 @@ from sqlalchemy import create_engine
 
 
 def exceltomysql(file):
-    ce = create_engine('mysql+pymysql://root:root888@127.0.0.1:3306/movie')
+    ce = create_engine('mysql+pymysql://root:root888@127.0.0.1:3306/djmovie')
     df = pd.read_excel(file)
     print(df)
     '''
@@ -22,7 +22,7 @@ def exceltomysql(file):
     度，而且如果Table不存在，语句能自动创建，还能根据源数据自动调整Table字段的属
     性，效果很好
     '''
-    df.to_sql(name='index_dbmovie', con=ce, if_exists="append", index=False, chunksize=100)
+    df.to_sql(name='dbmovie', con=ce, if_exists="append", index=False, chunksize=100)
     print('success')
 
 

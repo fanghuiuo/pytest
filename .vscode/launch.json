@@ -5,6 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Django",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\djmovie\\manage.py",
+            "args": [
+                "runserver"
+            ],
+            "django": true
+        },
+        {
             "name": "Python: 当前文件",
             "type": "python",
             "request": "launch",

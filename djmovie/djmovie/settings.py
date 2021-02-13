@@ -34,12 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD:djbook/djbook/settings.py
-    'book',
     'rest_framework',
-=======
     'index',
->>>>>>> 9b9da5644a54384ffe406a3f818e4937e75cf0ce:djmovie/djmovie/settings.py
 ]
 
 MIDDLEWARE = [
@@ -78,7 +74,7 @@ WSGI_APPLICATION = 'djmovie.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'movie',
+        'NAME': 'djmovie',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
