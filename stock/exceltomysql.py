@@ -12,7 +12,7 @@ from sqlalchemy import create_engine
 
 
 def exceltomysql(file):
-    ce = create_engine('mysql+pymysql://root:root888@127.0.0.1:3306/djmovie')
+    ce = create_engine('mysql+pymysql://root:root888@127.0.0.1:3306/djvuemovie')
     df = pd.read_excel(file)
     print(df)
     '''
