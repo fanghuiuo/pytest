@@ -12,6 +12,7 @@ Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 axios.defaults.withCredentials = true
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

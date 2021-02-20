@@ -1,4 +1,4 @@
-# front
+# vuefront
 
 > A Vue.js project
 

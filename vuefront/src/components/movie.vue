@@ -73,7 +73,7 @@
             :page-sizes="[5, 10, 20, 40]"
             :page-size="pagesize"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="info.length">    //这是显示总共有多少数据，
+            :total="info.length">    //这是显示总共有多少数据
        </el-pagination>
       </el-main>
     </el-container>
@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       currentPage:1, //初始页
-      pagesize:10,    //    每页的数据
+      pagesize:5,    //    每页的数据
       totle: 0,
       info: [],
     }

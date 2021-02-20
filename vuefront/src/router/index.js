@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import movie from '@/components/movie'
 
+
 Vue.use(Router)
 
 export default new Router({
