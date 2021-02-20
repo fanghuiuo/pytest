@@ -1,137 +1,134 @@
 // https://eslint.org/docs/user-guide/configuring
 
 module.exports = {
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-  "globals": {
-    "process": true,
-    "Plyr": true,
-    "AMap": true
-  },
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module",
+
+  // 此项是用来告诉eslint找当前配置文件不能往父级查找
+  root: true,
+
+  // 此项是用来指定eslint解析器的，解析器必须符合规则，babel-eslint解析器是对babel解析器的包装使其与ESLint解析
+  parser: 'babel-eslint',
+
+  // 此项是用来指定javaScript语言类型和风格，sourceType用来指定js导入的方式，默认是script，此处设置为module，指某块导入方式
+  parserOptions: {
+    // 设置 script(默认) 或 module，如果代码是在ECMASCRIPT中的模块
+    sourceType: 'module',
+    "ecmaVersion": 6,
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+      "jsx": true
     }
   },
-  "plugins": [
-    'html' // 插件，此插件用于识别文件中的js代码，没有MIME类型标识没有script标签也可以识别到，因此拿来识别.vue文件中的js代码
+
+  // 此项指定环境的全局变量，下面的配置指定为浏览器环境
+  env: {
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "es6": true,
+    "amd": true
+  },
+  // https://github.com/standard/standard/blob/master/docs/RULES-en.md
+  // 此项是用来配置标准的js风格，就是说写代码的时候要规范的写，如果你使用vs-code我觉得应该可以避免出错
+  extends: 'vue',
+  // 此项是用来提供插件的，插件名称省略了eslint-plugin-，下面这个配置是用来规范html的
+  plugins: [
+    'html',
+    "flow-vars",
+    "react"
   ],
-  "rules": {
-    /**
-     * 代码中可能的错误或逻辑错误
-     */
-    "no-cond-assign": ["error", "always"], // 禁止条件表达式中出现赋值操作符
-    "no-console": ["error", { allow: ["warn", "error"] }], // 禁用 console
-    "no-constant-condition": ["error", { "checkLoops": true }], // 禁止在条件中使用常量表达式
-    "no-control-regex": ["error"], // 禁止在正则表达式中使用控制字符
-    "no-debugger": ["error"], // 禁用 debugger
-    "no-dupe-args": ["error"], // 禁止 function 定义中出现重名参数
-    "no-dupe-keys": ["error"], // 禁止对象字面量中出现重复的 key
-    "no-duplicate-case": ["error"], // 禁止出现重复的 case 标签
-    "no-empty": ["error", { "allowEmptyCatch": true }], // 禁止出现空语句块
-    "no-empty-character-class": ["error"], // 禁止在正则表达式中使用空字符集
-    "no-ex-assign": ["error"], // 禁止对 catch 子句的参数重新赋值
-    "no-extra-boolean-cast": ["error"], // 禁止不必要的布尔转换
-    "no-extra-semi": ["error"], // 禁止不必要的分号
-    "no-func-assign": ["warn"], // 禁止对 function 声明重新赋值
-    "no-inner-declarations": ["error"], // 禁止在嵌套的块中出现变量声明或 function 声明
-    "no-invalid-regexp": ["error", { "allowConstructorFlags": [] }], // 禁止 RegExp 构造函数中存在无效的正则表达式字符串
-    "no-irregular-whitespace": ["error"], // 禁止在字符串和注释之外不规则的空白
-    "no-obj-calls": ["error"], // 禁止把全局对象作为函数调用
-    "no-regex-spaces": ["error"], // 禁止正则表达式字面量中出现多个空格
-    "no-sparse-arrays": ["error"], // 禁用稀疏数组
-    "no-unexpected-multiline": ["error"], // 禁止出现令人困惑的多行表达式
-    "no-unsafe-finally": ["error"], // 禁止在 finally 语句块中出现控制流语句
-    "no-unsafe-negation": ["error"], // 禁止对关系运算符的左操作数使用否定操作符
-    "use-isnan": ["error"], // 要求使用 isNaN() 检查 NaN
+  /*
+   下面这些rules是用来设置从插件来的规范代码的规则，使用必须去掉前缀eslint-plugin-
+    主要有如下的设置规则，可以设置字符串也可以设置数字，两者效果一致
+    "off" -> 0 关闭规则
+    "warn" -> 1 开启警告规则
+    "error" -> 2 开启错误规则
+  */
+  rules: {
+    // 不需要
+    "space-before-function-paren": 0,  // 函数定义时括号前面要不要有空格
+    "eol-last": 0,  // 文件以单一的换行符结束
+    "no-extra-semi": 0, // 可以多余的冒号
+    "semi": 0,  // 语句可以不需要分号结尾
+    "eqeqeq": 0, // 必须使用全等
+    "one-var": 0, // 连续声明
+    "no-undef": 0, // 可以 有未定义的变量
 
-    /**
-     * 最佳实践
-     */
-    "default-case": ["error"], // 要求 switch 语句中有 default 分支
-    "dot-notation": ["error"], // 强制尽可能地使用点号
-    "eqeqeq": ["warn"], // 要求使用 === 和 !==
-    "no-caller": ["error"], // 禁用 arguments.caller 或 arguments.callee
-    "no-case-declarations": ["error"], // 不允许在 case 子句中使用词法声明
-    "no-empty-function": ["error"], // 禁止出现空函数
-    "no-empty-pattern": ["error"], // 禁止使用空解构模式
-    "no-eval": ["error"], // 禁用 eval()
-    "no-global-assign": ["error"], // 禁止对原生对象或只读的全局对象进行赋值
-    // "no-magic-numbers": ["error", { "ignoreArrayIndexes": true }], // 禁用魔术数字
-    "no-redeclare": ["error", { "builtinGlobals": true }], // 禁止重新声明变量
-    "no-self-assign": ["error", { props: true }], // 禁止自我赋值
-    "no-unused-labels": ["error"], // 禁用出现未使用过的标
-    "no-useless-escape": ["error"], // 禁用不必要的转义字符
-    "radix": ["error"], // 强制在parseInt()使用基数参数
+    // 警告
+    "no-extra-boolean-cast": 1, // 不必要的bool转换
+    "no-extra-parens": 1, // 非必要的括号
+    "no-empty": 1, // 块语句中的内容不能为空
+    "no-use-before-define": [1, "nofunc"], // 未定义前不能使用
+    "complexity": [1, 10], // 循环复杂度
+    "no-unused-vars": 1, // 不能有声明后未被使用的变量或参数
+    // vue
+    "flow-vars/define-flow-type": 1,
+    "flow-vars/use-flow-type": 1,
 
-    /**
-     * 变量声明
-     */
-    "no-delete-var": ["error"], // 禁止删除变量
-    "no-undef": ["error"], // 禁用未声明的变量，除非它们在 /*global */ 注释中被提到
-    "no-unused-vars": ["error"], // 禁止出现未使用过的变量
-    "no-use-before-define": ["error"], // 禁止在变量定义之前使用它们
+    // react
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
 
-    /**
-     * 风格指南
-     */
-    "array-bracket-newline": ["error", { "multiline": true }], // 在数组开括号后和闭括号前强制换行
-    "array-bracket-spacing": ["error", "never"], // 强制数组方括号中使用一致的空2
-    "block-spacing": ["error", "never"], // 禁止或强制在代码块中开括号前和闭括号后有空格
-    "brace-style": ["error", "1tbs",], // 强制在代码块中使用一致的大括号风格
-    "comma-dangle": ["error", "never"], // 要求或禁止末尾逗号
-    "comma-spacing": ["error", { "before": false, "after": true }], // 强制在逗号前后使用一致的空格
-    "comma-style": ["error", "last"], // 强制使用一致的逗号风格
-    "computed-property-spacing": ["error", "never"], // 强制在计算的属性的方括号中使用一致的空格
-    "consistent-this": ["error", "that"], // 当获取当前执行环境的上下文时，强制使用一致的命名
-    "eol-last": ["error", "always"], // 要求或禁止文件末尾存在空行
-    "func-call-spacing": ["error", "never"], // 要求或禁止在函数标识符和其调用之间有空格
-    "func-names": ["error", "always"], // 要求或禁止使用命名的 function 表达式
-    "func-style": ["error", "declaration", { "allowArrowFunctions": true }], // 强制一致地使用 function 声明或表达式
-    "function-paren-newline": ["error", "multiline"], // 强制在函数括号内使用一致的换行
-    "implicit-arrow-linebreak": ["error", "beside"], // 强制隐式返回的箭头函数体的位置
-    "indent": ["error", 2, { "SwitchCase": 1 }], // 两个空格缩进
-    "jsx-quotes": ["error", "prefer-double"], // 强制在 JSX 属性中一致地使用双引号或单引号
-    "key-spacing": ["error", { "beforeColon": false, "afterColon": true }], // 强制在对象字面量的属性中键和值之间使用一致的间距
-    "line-comment-position": ["error", { "position": "above", "ignorePattern": "ETC" }], // 强制行注释的位置
-    "linebreak-style": ["error", "unix"], // 换行符风格
-    "max-depth": ["error", 4], // 强制可嵌套的块的最大深度
-    "max-nested-callbacks": ["error", 3], // 强制回调函数最大嵌套深度
-    "max-params": ["error", 6], // 强制函数定义中最多允许的参数数量
-    "multiline-comment-style": ["error", "starred-block"], // 强制对多行注释使用特定风格
-    "multiline-ternary": ["error", "always-multiline"], // 要求或禁止在三元操作数中间换行
-    "new-cap": ["error", { "capIsNew": false }], // 要求构造函数首字母大写
-    "no-array-constructor": ["error"], // 禁用 Array 构造函数
-    "no-mixed-operators": ["error"], // 禁止混合使用不同的操作符
-    "no-mixed-spaces-and-tabs": ["error"], // 禁止空格和 tab 的混合缩进
-    "no-multiple-empty-lines": ["error"], // 禁止出现多行空行
-    "no-new-object": ["error"], // 禁用 Object 的构造函数
-    "no-tabs": ["error"], // 禁用 tab
-    "no-trailing-spaces": ["error", { "skipBlankLines": false, "ignoreComments": false }], // 禁用行尾空白
-    "no-whitespace-before-property": ["error"], // 禁止属性前有空白
-    "nonblock-statement-body-position": ["error", "beside"], // 强制单个语句的位置
-    "object-curly-spacing": ["error", "never"], // 强制在大括号中使用一致的空格
-    "operator-linebreak": ["error", "after"], // 强制操作符使用一致的换行符
-    "quotes": ["error", "single"], // 使用单引号
-    "semi": ["error", "always"], // 要求或禁止使用分号代替 ASI
-    "semi-spacing": ["error", { "before": false, "after": true }], // 强制分号之前和之后使用一致的空格
-    "space-before-function-paren": ["error", "never"], // 强制在 function的左括号之前使用一致的空格
-    "space-in-parens": ["error", "never"], // 强制在圆括号内使用一致的空格
-    "space-infix-ops": ["error"], // 要求操作符周围有空格
-    "space-unary-ops": ["error", { "words": true, "nonwords": false }], // 强制在一元操作符前后使用一致的空格
-    "spaced-comment": ["error", "always"], // 强制在注释中 // 或 /* 使用一致的空格
+    // 错误
+    "comma-dangle": [2, "never"], // 对象字面量项尾不能有逗号
+    "no-debugger": 2, // 禁止使用debugger
+    "no-constant-condition": 2, // 禁止在条件中使用常量表达式 if(true) if(1)
+    "no-dupe-args": 2, // 函数参数不能重复
+    "no-dupe-keys": 2, // 在创建对象字面量时不允许键重复 {a:1,a:1}
+    "no-duplicate-case": 2, // switch中的case标签不能重复
+    "no-empty-character-class": 2, // 正则表达式中的[]内容不能为空
+    "no-invalid-regexp": 2, // 禁止无效的正则表达式
+    "no-func-assign": 2, // 禁止重复的函数声明
+    "valid-typeof": 2,  // 必须使用合法的typeof的值
+    "no-unreachable": 2, // 不能有无法执行的代码
+    "no-unexpected-multiline": 2, // 避免多行表达式
+    "no-sparse-arrays": 2, // 禁止稀疏数组， [1,,2]
+    "no-shadow-restricted-names": 2, // 严格模式中规定的限制标识符不能作为声明时的变量名使用
+    "no-cond-assign": 2, // 禁止在条件表达式中使用赋值语句
+    "no-native-reassign": 2, // 不能重写native对象
 
-    /**
-     * ECMAScript 6
-     */
-    "arrow-spacing": ["error", { "before": true, "after": true }], // 强制箭头函数的箭头前后使用一致的空格
-    "no-var": ["error"], // 要求使用 let 或 const 而不是 var
-    "object-shorthand": ["error", "always"], // 要求或禁止对象字面量中方法和属性使用简写语法
-    "prefer-arrow-callback": ["error", { "allowNamedFunctions": false }], // 要求回调函数使用箭头函数
+    // 代码风格
+    "no-else-return": 1, // 如果if语句里面有return,后面不能跟else语句
+    "no-multi-spaces": 1, // 不能用多余的空格
+    "key-spacing": [1, {  // 对象字面量中冒号的前后空格
+      "beforeColon": false,
+      "afterColon": true
+    }],
+    "block-scoped-var": 2, // 块语句中使用var
+    "consistent-return": 2, // return 后面是否允许省略
+    "accessor-pairs": 2, // 在对象中使用getter/setter
+    "dot-location": [2, "property"], // 对象访问符的位置，换行的时候在行首还是行尾
+    "no-lone-blocks": 2, // 禁止不必要的嵌套块
+    "no-labels": 2, // 禁止标签声明
+    "no-extend-native": 2, // 禁止扩展native对象
+    "no-floating-decimal": 2, // 禁止省略浮点数中的0 .5 3.
+    "no-loop-func": 2, // 禁止在循环中使用函数（如果没有引用外部变量不形成闭包就可以）
+    "no-new-func": 2,  // 禁止使用new Function
+    "no-self-compare": 2, // 不能比较自身
+    "no-sequences": 2, // 禁止使用逗号运算符
+    "no-throw-literal": 2, // 禁止抛出字面量错误 throw "error";
+    "no-return-assign": [2, "always"], // return 语句中不能有赋值表达式
+    "no-redeclare": [2, {   // 禁止重复声明变量
+      "builtinGlobals": true
+    }],
+    "no-unused-expressions": [2, {  // 禁止无用的表达式
+      "allowShortCircuit": true,
+      "allowTernary": true
+    }],
+    "no-useless-call": 2, // 禁止不必要的call和apply
+    "no-useless-concat": 2,
+    "no-void": 2, // 禁用void操作符
+    "no-with": 2, // 禁用with
+    "space-infix-ops": 2, // 中缀操作符周围要不要有空格
+    "valid-jsdoc": [2, { // jsdoc规则
+      "requireParamDescription": true,
+      "requireReturnDescription": true
+    }],
+    "no-warning-comments": [2, {  // 不能有警告备注
+      "terms": ["todo", "fixme", "any other term"],
+      "location": "anywhere"
+    }],
+    "curly": 1, // 必须使用 if(){} 中的{}
+
+    // common js
+    "no-duplicate-imports": 1
   }
 }
