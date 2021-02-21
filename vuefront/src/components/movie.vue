@@ -1,68 +1,46 @@
 <template>
-  <el-container style="height: 500px; border: 1px solid #eee">
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu :default-openeds="['1', '3']">
-        <el-submenu index="1">
-          <template slot="title"
-            ><i class="el-icon-message"></i>导航一</template
-          >
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
+  <el-container class="main-container">
+    <el-header >
+      <div>
+        <span>基础系统</span>
+      </div>
+      <el-button type="info" round size="small"  >退出</el-button>
 
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
+      </el-header>
 
-        </el-submenu>
-        <el-submenu index="2">
-          <template slot="title"><i class="el-icon-menu"></i>导航二</template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="2-3">选项3</el-menu-item>
-          </el-menu-item-group>
-
-        </el-submenu>
-        <el-submenu index="3">
-          <template slot="title"
-            ><i class="el-icon-setting"></i>导航三</template
-          >
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="3-1">选项1</el-menu-item>
-
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="3-3">选项3</el-menu-item>
-          </el-menu-item-group>
-
-        </el-submenu>
-      </el-menu>
-    </el-aside>
 
     <el-container>
-      <el-header style="text-align: right; font-size: 12px">
-        <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <span>王小虎</span>
-      </el-header>
+      <el-aside width="200px" >
+     <el-menu
+      background-color="#333744"
+      text-color="#fff"
+      active-text-color="#ffd04b">
+      <!-- 一级菜单 -->
+      <el-submenu index="1">
+        <!-- 一级菜单模板 -->
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>导航一</span>
+        </template>
+        <!-- 二级菜单 -->
+        <el-menu-item index="1-1">
+          <!-- 二级菜单模板 -->
+          <template slot="title">
+           <i class="el-icon-location"></i>
+           <span>子菜单</span>
+          </template>
+        </el-menu-item>
+      </el-submenu>
+
+    </el-menu>
+    </el-aside>
+
 
       <el-main>
         <el-table :data="info.slice((currentPage-1)*pagesize,currentPage*pagesize)" >
           <el-table-column prop="dym" label="电影名" width="140">
           </el-table-column>
-          <el-table-column prop="dy" label="导演" width="120">
+          <el-table-column pr<el-menu-item index="1-1">选项1</el-menu-item>op="dy" label="导演" width="120">
           </el-table-column>
           <el-table-column prop="bj" label="编剧"> </el-table-column>
         </el-table>
@@ -85,7 +63,7 @@ export default {
   data() {
     return {
       currentPage:1, //初始页
-      pagesize:5,    //    每页的数据
+      pagesize:8,    //    每页的数据
       totle: 0,
       info: [],
     }
@@ -109,13 +87,27 @@ export default {
 </script>
 
 <style>
-.el-header {
-  background-color: #b3c0d1;
-  color: #333;
-  line-height: 60px;
-}
+  .main-container{
+    height: 100%;
+  }
+  .el-header {
+    background-color: #373D41;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 50px; /*字离左边 */
+    align-items: center;
+    color: #fff;
+    font-size: 20px;
 
-.el-aside {
-  color: #333;
-}
+
+    /* text-align: right;
+    font-size: 12px;*/
+  }
+
+  .el-aside {
+    background-color: #333744;
+  }
+  .el-main {
+    background-color: #eaedf1;
+  }
 </style>
