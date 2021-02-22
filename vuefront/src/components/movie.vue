@@ -48,7 +48,7 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            :page-sizes="[5, 10, 20, 40]"
+            :page-sizes="[5, 10, 20, 40]" 
             :page-size="pagesize"
             layout="total, sizes, prev, pager, next, jumper"
             :total="info.length">    //这是显示总共有多少数据
@@ -86,7 +86,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .main-container{
     height: 100%;
   }
