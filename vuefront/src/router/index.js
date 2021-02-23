@@ -10,7 +10,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+<<<<<<< HEAD
       redirect:'/login'
+=======
+      redirect: '/login'
+>>>>>>> 70d5daae15ccda077e59254c053de6646c65244a
     },
     {
       path: '/movie',
