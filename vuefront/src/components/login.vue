@@ -2,7 +2,7 @@
 <div class="login_container">
     <div class="login_box">
 
-        <el-form  :model="loginform" :rules="loginformrules" label-width="0px" class="login_form">
+        <el-form ref="loginformref" :model="loginform" :rules="loginformrules" label-width="0px" class="login_form">
             <el-form-item prop="username">
               <el-input v-model="loginform.username" prefix-icon="el-icon-user"></el-input>
             </el-form-item>
@@ -10,8 +10,8 @@
               <el-input v-model="loginform.userpassword" prefix-icon="el-icon-lock" type="password"></el-input>
             </el-form-item>
             <el-form-item class="btns">
-              <el-button type="primary">登录</el-button>
-              <el-button type="info">重置</el-button>
+              <el-button type="primary" @click="login">登录</el-button>
+              <el-button type="info" @click="loginreset">重置</el-button>
             </el-form-item>
         </el-form>
 
@@ -38,6 +38,20 @@ export default {
         username: '1',
         userpassword: '1'
       }
+    }
+  },
+  methods: {
+    loginreset() {
+      this.$refs.loginformref.resetFields()
+    },
+    login() {
+      this.$refs.loginformref.validate((valid) => {
+        if (valid) {
+          console.log('hhh')
+        } else {
+          return
+        }
+      })
     }
   }
 }
