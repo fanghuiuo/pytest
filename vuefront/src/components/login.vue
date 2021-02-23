@@ -2,21 +2,12 @@
 <div class="login_container">
     <div class="login_box">
 
-<<<<<<< HEAD
-        <el-form  label-width="0px" class="login_form">
-            <el-form-item >
-              <el-input ></el-input>
-            </el-form-item>
-            <el-form-item >
-              <el-input ></el-input>
-=======
         <el-form  :model="loginform" :rules="loginformrules" label-width="0px" class="login_form">
             <el-form-item prop="username">
               <el-input v-model="loginform.username" prefix-icon="el-icon-user"></el-input>
             </el-form-item>
             <el-form-item prop="userpassword">
               <el-input v-model="loginform.userpassword" prefix-icon="el-icon-lock" type="password"></el-input>
->>>>>>> 70d5daae15ccda077e59254c053de6646c65244a
             </el-form-item>
             <el-form-item class="btns">
               <el-button type="primary">登录</el-button>
@@ -31,9 +22,6 @@
 
 <script>
 export default {
-<<<<<<< HEAD
-
-=======
   data() {
     return {
       loginformrules: {
@@ -52,7 +40,6 @@ export default {
       }
     }
   }
->>>>>>> 70d5daae15ccda077e59254c053de6646c65244a
 }
 </script>
 
@@ -79,12 +66,7 @@ export default {
     padding-top: 15%;
     padding-bottom: 10%;
     box-sizing: border-box;
-<<<<<<< HEAD
-    padding-left: 10px;
-    padding-right: 10px;
-=======
     padding-left: 30px;
     padding-right: 30px;
->>>>>>> 70d5daae15ccda077e59254c053de6646c65244a
 }
 </style>

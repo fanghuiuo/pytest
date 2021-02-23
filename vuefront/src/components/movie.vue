@@ -5,10 +5,7 @@
         <span>基础系统</span>
       </div>
       <el-button type="info" round size="small"  >退出</el-button>
-
       </el-header>
-
-
     <el-container>
       <el-aside width="200px" >
      <el-menu
@@ -31,10 +28,8 @@
           </template>
         </el-menu-item>
       </el-submenu>
-
     </el-menu>
     </el-aside>
-
 
       <el-main>
         <el-table :data="info.slice((currentPage-1)*pagesize,currentPage*pagesize)" >
@@ -48,7 +43,7 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            :page-sizes="[5, 10, 20, 40]" 
+            :page-sizes="[5, 10, 20, 40]"
             :page-size="pagesize"
             layout="total, sizes, prev, pager, next, jumper"
             :total="info.length">    //这是显示总共有多少数据
@@ -62,27 +57,26 @@
 export default {
   data() {
     return {
-      currentPage:1, //初始页
-      pagesize:8,    //    每页的数据
+      currentPage: 1, // 初始页
+      pagesize: 8, //    每页的数据
       totle: 0,
-      info: [],
+      info: []
     }
   },
   mounted() {
-
-    this.$axios.get("http://127.0.0.1:8000/api/").then((response) => (this.info=response.data))
+    this.$axios.get('http://127.0.0.1:8000/api/').then((response) => { this.info = response.data })
   },
-   methods: {
-        // 初始页currentPage、初始每页数据数pagesize和数据data
-        handleSizeChange: function (size) {
-                this.pagesize = size;
-                console.log(this.pagesize)  //每页下拉显示数据
-        },
-        handleCurrentChange: function(currentPage){
-                this.currentPage = currentPage;
-                console.log(this.currentPage)  //点击第几页
-        },
-      }
+  methods: {
+    // 初始页currentPage、初始每页数据数pagesize和数据data
+    handleSizeChange: function (size) {
+      this.pagesize = size;
+      nsole.log(this.pagesize) // 每页下拉显示数据
+    },
+    handleCurrentChange: function(currentPage) {
+      this.currentPage = currentPage;
+      console.log(this.currentPage) // 点击第几页
+    }
+  }
 }
 </script>
 
@@ -98,7 +92,6 @@ export default {
     align-items: center;
     color: #fff;
     font-size: 20px;
-
 
     /* text-align: right;
     font-size: 12px;*/
