@@ -5,11 +5,14 @@ from rest_framework.response import Response
 # from .page import fenye
 from django.shortcuts import render
 # from django.db.models import Q
+from .fiter import moviefiter
 
 
 class movieviewset(viewsets.ModelViewSet):
     queryset = Dbmovie.objects.all().order_by('id')
     serializer_class = movieserializer
+    filter_class = moviefiter
+
     # pagination_class = fenye  #分页
 
     def queryfind(self, request):

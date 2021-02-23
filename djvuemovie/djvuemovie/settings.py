@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'movieapi',
     'rest_framework',
+    'django_filters',
 ]
-
+REST_FRAMEWORK = {
+    # 过滤器默认后端
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -49,9 +53,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ORIGIN_ALLOW_ALL = True    # 允许任意站点跨域请求
+CORS_ORIGIN_ALLOW_ALL = True  # 允许任意站点跨域请求
 
-CORS_ALLOW_CREDENTIALS = True   # 允许发送身份验证
+CORS_ALLOW_CREDENTIALS = True  # 允许发送身份验证
 
 ROOT_URLCONF = 'djvuemovie.urls'
 
