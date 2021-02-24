@@ -35,7 +35,7 @@
         <el-table :data="info.slice((currentPage-1)*pagesize,currentPage*pagesize)" >
           <el-table-column prop="dym" label="电影名" width="140">
           </el-table-column>
-          <el-table-column pr<el-menu-item index="1-1">选项1</el-menu-item>op="dy" label="导演" width="120">
+          <el-table-column prop="dy" label="导演" width="120">
           </el-table-column>
           <el-table-column prop="bj" label="编剧"> </el-table-column>
         </el-table>
@@ -64,7 +64,10 @@ export default {
     }
   },
   mounted() {
-    this.$axios.get('http://127.0.0.1:8000/api/').then((response) => { this.info = response.data })
+    this.$axios.get('/api/').then((response) => { this.info = response.data })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      })
   },
   methods: {
     // 初始页currentPage、初始每页数据数pagesize和数据data

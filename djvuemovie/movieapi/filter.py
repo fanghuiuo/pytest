@@ -27,8 +27,12 @@ class moviefilter(django_filters.FilterSet):
             'lx': ['icontains'],
             'zpgj': ['icontains'],
             'yy': ['icontains'],
-            # 或者这么表达imdbpf大于小于
-            #  可以这样来进行大小范围搜索/movie/?imdbpf__gte=8.4&imdbpf__lte=9
+            'gfwz': ['icontains'],
+            'cybq': ['icontains'],
+            # 或者这么表达imdbpf大于小于 gt 大于 gte 大于等于  lt小于 lte 小于等于
+            # 可以这样来进行大小范围搜索/movie/?imdbpf__gte=8.4&imdbpf__lte=9
             'pjrs': ['gte', 'lte'],
-            'dbpf': ['gte', 'lte'],
+            'imdbpjrs': ['gte', 'lte'],
+            'dbpf': ['gt', 'lt'],
+            'imdbpf': ['gt', 'lt'],
         }

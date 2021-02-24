@@ -5,7 +5,7 @@ from .serializer import movieserializer
 # from .page import fenye
 # from django.shortcuts import render
 # from django.db.models import Q
-from .fiter import moviefilter
+from .filter import moviefilter
 
 
 class movieviewset(viewsets.ModelViewSet):

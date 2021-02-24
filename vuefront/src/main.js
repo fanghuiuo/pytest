@@ -11,10 +11,10 @@ import './assets/css/global.css'
 import axios from 'axios'
 
 Vue.prototype.$axios = axios
-
+axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.withCredentials = true
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-axios.defaults.withCredentials = true
 
 /* eslint-disable no-new */
 new Vue({
