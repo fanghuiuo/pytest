@@ -11,5 +11,5 @@ urlpatterns = [
         'delete': 'destroy'
     })),
     path('api/queryfind', movieviewset.as_view({'get': 'queryfind'})),
-    path('', movieviewset.axios),  # 模板页
+    # path('', movieviewset.axios),  # 模板页
 ]
