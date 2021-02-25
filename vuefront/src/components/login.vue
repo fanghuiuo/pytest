@@ -61,14 +61,15 @@ export default {
             headers: {
               'Content-Type': 'application/json;charset=UTF-8'
             },
-            data: {
+            parms: {
               dy: this.loginform.username,
               bj: this.loginform.userpassword
             }
           })
             .then(res => { // 请求成功后执行函数
-              if (res.data.message === 'SUCCESS') {
-                this.$outer.push('/movie')	// 登录验证成功路由实现跳转
+              if (res.status === 200) {
+                console.log(res.data)
+                this.$router.push('movie')	// 登录验证成功路由实现跳转
                 this.$nortify({
                   title: '提示',
                   message: '用户登录成功',
