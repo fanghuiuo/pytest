@@ -24,6 +24,8 @@ class moviefilter(django_filters.FilterSet):
 
         fields = {
             'dym': ['icontains'],
+            'dy': ['icontains'],
+            'bj': ['icontains'],
             'lx': ['icontains'],
             'zpgj': ['icontains'],
             'yy': ['icontains'],

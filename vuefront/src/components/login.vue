@@ -61,34 +61,29 @@ export default {
             headers: {
               'Content-Type': 'application/json;charset=UTF-8'
             },
-            parms: {
-              dy: this.loginform.username,
-              bj: this.loginform.userpassword
+            params: {
+              dy__icontains: this.loginform.username,
+              bj__icontains: this.loginform.userpassword
             }
           })
             .then(res => { // 请求成功后执行函数
-              if (res.status === 200) {
+              if (res.data.length != 0) {
                 console.log(res.data)
+                this.$message({
+                  message: '登录成功',
+                  type: 'success'
+                })
                 this.$router.push('movie')	// 登录验证成功路由实现跳转
-                this.$nortify({
-                  title: '提示',
-                  message: '用户登录成功',
-                  duration: 3000
-                });
               } else {
-                this.$notify({
-                  title: '提示',
-                  message: '用户登录失败',
-                  duration: 3000
+                this.$message({
+                  message: '用户名密码不正确 登录失败',
+                  type: 'warning'
                 })
               }
             })
             .catch(err => { // 请求错误后执行函数
-              this.$notify({
-                title: '提示',
-                message: '用户访问错误',
-                duration: 3000
-              });
+              console.log(err)
+              this.$message.error('产生错误')
               console.log(err)
             })
         } else {

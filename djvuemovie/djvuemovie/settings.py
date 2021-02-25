@@ -37,11 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'movieapi',
     'rest_framework',
-    'django_filters',
+    'django_filters',  # 过滤器
+    'rest_framework_swagger',  # api文档
 ]
 REST_FRAMEWORK = {
     # 过滤器默认后端
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    # api文档
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema',
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -44,6 +44,7 @@ module.exports = {
     "error" -> 2 开启错误规则
   */
   rules: {
+    "camelcase": [0, {"properties": "never"}],
     // 不需要
     "space-before-function-paren": 0,  // 函数定义时括号前面要不要有空格
     "eol-last": 0,  // 文件以单一的换行符结束
