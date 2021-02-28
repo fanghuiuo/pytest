@@ -29,3 +29,33 @@ class Dbmovie(models.Model):
 
     def __str__(self):
         return self.dym
+
+
+class User(models.Model):
+    user_type_choices = (
+        (1, '普通用户'),
+        (2, 'VIP'),
+        (3, 'SVIP'),
+    )
+    usertype = models.IntegerField(choices=user_type_choices)
+    username = models.CharField(max_length=32)
+    userpassword = models.CharField(max_length=32)
+
+    class Meta:
+        managed = True
+        db_table = 'User'
+
+    def __str__(self):
+        return self.username
+
+
+class UserToken(models.Model):
+    token = models.CharField(max_length=64)
+    username = models.OneToOneField(to='User', on_delete=models.CASCADE)
+
+    class Meta:
+        managed = True
+        db_table = 'UserToken'
+
+    def __str__(self):
+        return self.token

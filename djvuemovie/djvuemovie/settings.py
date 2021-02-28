@@ -39,12 +39,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',  # 过滤器
     'rest_framework_swagger',  # api文档
+    'rest_framework.authtoken',  # token认证
 ]
 REST_FRAMEWORK = {
     # 过滤器默认后端
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     # api文档
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': ['movieapi.myauth.Loginauth', ],
+    'DEFAULT_PERMISSION_CLASSES': ['movieapi.myauth.MyPermission', ],
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

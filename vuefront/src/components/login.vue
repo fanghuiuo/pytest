@@ -56,14 +56,14 @@ export default {
       this.$refs.loginformref.validate((valid) => {
         if (valid) {
           this.$axios({
-            method: 'get',
-            url: '/api/',
+            method: 'post',
+            url: '/login/',
             headers: {
               'Content-Type': 'application/json;charset=UTF-8'
             },
             params: {
-              dy__icontains: this.loginform.username,
-              bj__icontains: this.loginform.userpassword
+              username: this.loginform.username,
+              userpassword: this.loginform.userpassword
             }
           })
             .then(res => { // 请求成功后执行函数

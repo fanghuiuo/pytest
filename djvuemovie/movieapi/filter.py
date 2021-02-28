@@ -1,5 +1,5 @@
 import django_filters
-from .models import Dbmovie
+from .models import Dbmovie, User
 
 
 class moviefilter(django_filters.FilterSet):
@@ -38,3 +38,10 @@ class moviefilter(django_filters.FilterSet):
             'dbpf': ['gt', 'lt'],
             'imdbpf': ['gt', 'lt'],
         }
+
+
+class userfilter(django_filters.FilterSet):
+
+    class Meta:
+        model = User
+        fields = ['username', 'userpassword']

@@ -8,7 +8,7 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}\\vuemovie\\manage.py",
+            "program": "${workspaceFolder}\\djvuemovie\\manage.py",
             "args": [
                 "runserver"
             ],

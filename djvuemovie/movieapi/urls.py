@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import movieviewset
+from .views import movieviewset, userviewset, LoginView
 from rest_framework.schemas import get_schema_view
 from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
+
 schema_view = get_schema_view(title='Users API', renderer_classes=[OpenAPIRenderer, SwaggerUIRenderer])
 urlpatterns = [
     path('api/', movieviewset.as_view({
@@ -14,6 +15,10 @@ urlpatterns = [
         'delete': 'destroy'
     })),
     path('docs/', schema_view),
+    path('api/login', userviewset.as_view({
+        'get': 'list',
+    })),
+    path('login/', LoginView),
     # path('api/queryfind', movieviewset.as_view({'get': 'queryfind'})),
     # path('', movieviewset.axios),  # 模板页
 ]
