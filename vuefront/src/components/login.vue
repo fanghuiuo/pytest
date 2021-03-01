@@ -52,14 +52,24 @@ export default {
     loginreset() {
       this.$refs.loginformref.resetFields()
     },
+    // 用于解决CSRF Failed: CSRF token missing or incorrect问题
+    getCookie(name) {
+      var value = '; ' + document.cookie
+      var parts = value.split('; ' + name + '=')
+      if (parts.length === 2) return parts.pop().split(';').shift()
+      // 解决 eslint Expected to return a value at the end of method 警告
+      return true
+    },
     login() {
       this.$refs.loginformref.validate((valid) => {
         if (valid) {
           this.$axios({
             method: 'post',
             url: '/login/',
+            // 添加headers 用于解决CSRF Failed: CSRF token missing or incorrect问题
             headers: {
-              'Content-Type': 'application/json;charset=UTF-8'
+              'Content-Type': 'application/json;charset=UTF-8',
+              'X-CSRFToken': this.getCookie('csrftoken')
             },
             data: {
               username: this.loginform.username,
@@ -67,7 +77,7 @@ export default {
             }
           })
             .then(res => { // 请求成功后执行函数
-              if (res.data.length != 0) {
+              if (res.data.code === 200) {
                 console.log(res.data)
                 this.$message({
                   message: '登录成功',
