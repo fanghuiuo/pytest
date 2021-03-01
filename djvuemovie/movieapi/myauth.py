@@ -6,12 +6,17 @@ from .models import UserToken
 # 认证类
 class Loginauth(BaseAuthentication):
     def authenticate(self, request):
+        # 1. 在请求头的query_params中获取token
+        # token = request.query_params.get('token')
+
+        # 2. 直接在请求头中获取token
         token = request._request.GET.get('token')
         token_obj = UserToken.objects.filter(token=token).first()
 
         if not token_obj:
             raise exceptions.AuthenticationFailed('用户认证失败')
-        return (token_obj.username, token_obj)
+        else:
+            return (token_obj.username, token_obj)
 
 
 # 权限管理

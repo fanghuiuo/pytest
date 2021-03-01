@@ -46,8 +46,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     # api文档
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema',
-    'DEFAULT_AUTHENTICATION_CLASSES': ['movieapi.myauth.Loginauth', ],
-    'DEFAULT_PERMISSION_CLASSES': ['movieapi.myauth.MyPermission', ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': ('movieapi.myauth.Loginauth', ),
+    # 'DEFAULT_PERMISSION_CLASSES': ('movieapi.myauth.MyPermission', ),
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

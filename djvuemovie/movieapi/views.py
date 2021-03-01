@@ -10,6 +10,7 @@ import hashlib
 from rest_framework.views import APIView
 import time
 from rest_framework.response import Response
+from .myauth import Loginauth, MyPermission
 
 
 class movieviewset(viewsets.ModelViewSet):
@@ -35,9 +36,11 @@ class movieviewset(viewsets.ModelViewSet):
     # 过滤类
     filter_class = moviefilter
     # 指定认证类
-    # authentication_classes = [TokenAuthentication, ]
+    authentication_classes = [Loginauth, ]
+    permission_calsses = [MyPermission, ]
 
     # pagination_class = fenye  #分页
+
     '''
 
     def queryfind(self, request):
@@ -52,23 +55,24 @@ class movieviewset(viewsets.ModelViewSet):
 
 
 class userviewset(viewsets.ModelViewSet):
+    authentication_classes = [Loginauth, ]
+    permission_calsses = [MyPermission, ]
     queryset = User.objects.all().order_by('id')
     serializer_class = userserializer
     filter_class = userfilter
 
 
 class LoginView(APIView):
-    authentication_classes = []  # 登录验证登陆页面免认证，其余的已经全局配置
-    permission_calsses = []  # 权限登陆页面免认证，其余的已经全局配置
 
     def post(self, request, *args, **kwargs):
         try:
             username = request.data["username"]
-            password = request.data["password"]
-            user_obj = User.objects.filter(username=username, password=password).first()
+            userpassword = request.data["userpassword"]
+            user_obj = User.objects.filter(username=username, userpassword=userpassword).first()
+            print(user_obj)
             if user_obj:
                 # 为登录用户创建token
-                token = self.md5(username)
+                token = md5(username)
                 '''
                 # 保存(存在就更新不存在就创建，并设置过期时间为5分钟)
                  expiration_time = datetime.now() + dateutil.relativedelta.relativedelta(minutes=5)
@@ -78,16 +82,19 @@ class LoginView(APIView):
                     "expiration_time": expiration_time
                 }
                 '''
-                UserToken.objects.update_or_create(user=user_obj, defaults={'token': token})
-                return Response({"code": 200, "token": token})
+                UserToken.objects.update_or_create(username=user_obj, defaults={'token': token})
+                user_data = userserializer(user_obj).data
+                return Response({"code": 200, "token": token, "user": user_data})
             else:
                 return Response({"code": 401, "error": "用户名或密码错误"})
         except Exception as e:
             print(e)
             return Response({"code": 500, "error": "用户名或密码错误"})
-    # 生成token
 
-    def md5(self, username):
-        m = hashlib.md5(bytes(username, encoding='utf-8'))
-        m.update(bytes(str(time.time()), encoding='utf-8'))
-        return m.hexdigest()
+
+# 生成token
+def md5(user):
+    ctime = str(time.time())
+    m = hashlib.md5('user'.encode('utf-8'))
+    m.update(ctime.encode('utf-8'))
+    return m.hexdigest()

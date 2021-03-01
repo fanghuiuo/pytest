@@ -18,7 +18,7 @@ urlpatterns = [
     path('api/login', userviewset.as_view({
         'get': 'list',
     })),
-    path('login/', LoginView),
+    path('login/', LoginView.as_view()),
     # path('api/queryfind', movieviewset.as_view({'get': 'queryfind'})),
     # path('', movieviewset.axios),  # 模板页
 ]
