@@ -61,7 +61,7 @@ export default {
             headers: {
               'Content-Type': 'application/json;charset=UTF-8'
             },
-            params: {
+            data: {
               username: this.loginform.username,
               userpassword: this.loginform.userpassword
             }
