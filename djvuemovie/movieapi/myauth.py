@@ -10,7 +10,8 @@ class Loginauth(BaseAuthentication):
         # token = request.query_params.get('token')
 
         # 2. 直接在请求头中获取token
-        token = request._request.GET.get('token')
+        print(request.META)
+        token = request.META.get("HTTP_AUTHORIZATION")
         token_obj = UserToken.objects.filter(token=token).first()
 
         if not token_obj:

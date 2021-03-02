@@ -79,11 +79,12 @@ export default {
             .then(res => { // 请求成功后执行函数
               if (res.data.code === 200) {
                 console.log(res.data)
+                localStorage.setItem('token', res.data.token)
                 this.$message({
                   message: '登录成功',
                   type: 'success'
                 })
-                // this.$router.push('movie')	// 登录验证成功路由实现跳转到home页
+                this.$router.push('movie')	// 登录验证成功路由实现跳转到home页
               } else {
                 this.$message({
                   message: '用户名密码不正确 登录失败',
