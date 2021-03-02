@@ -4,7 +4,7 @@
       <div>
         <span>基础系统</span>
       </div>
-      <el-button type="info" round size="small"  >退出</el-button>
+      <el-button type="info" round size="small" @click="loginout">退出</el-button>
       </el-header>
     <el-container>
       <el-aside width="200px" >
@@ -64,14 +64,7 @@ export default {
     }
   },
   mounted() {
-    this.$axios({
-      method: 'get',
-      url: '/api/',
-      // 添加headers 用于解决CSRF Failed: CSRF token missing or incorrect问题
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8'
-      }
-    }).then((response) => { this.info = response.data })
+    this.$axios.get('/api/').then((response) => { this.info = response.data })
       .catch(function (error) { // 请求失败处理
         console.log(error);
       })
@@ -85,6 +78,11 @@ export default {
     handleCurrentChange: function(currentPage) {
       this.currentPage = currentPage;
       console.log(this.currentPage) // 点击第几页
+    },
+    loginout() {
+      // 清空localStorage
+      window.localStorage.clear()
+      this.$router.push('/login')
     }
   }
 }
