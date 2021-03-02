@@ -6,10 +6,7 @@ from .models import UserToken
 # 认证类
 class Loginauth(BaseAuthentication):
     def authenticate(self, request):
-        # 1. 在请求头的query_params中获取token
-        # token = request.query_params.get('token')
-
-        # 2. 直接在请求头中获取token
+        # 1. 直接在请求头中获取token
         print(request.META)
         token = request.META.get("HTTP_AUTHORIZATION")
         token_obj = UserToken.objects.filter(token=token).first()
