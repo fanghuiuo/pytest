@@ -66,7 +66,7 @@ export default {
           this.$axios({
             method: 'post',
             url: '/login/',
-            // 添加headers 用于解决CSRF Failed: CSRF token missing or incorrect问题
+            // 添加headers 用于解决CSRF Failed: CSRF token missing or incorrect 问题
             headers: {
               'Content-Type': 'application/json;charset=UTF-8',
               'X-CSRFToken': this.getCookie('csrftoken')
