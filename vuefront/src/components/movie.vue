@@ -32,12 +32,38 @@
     </el-aside>
 
       <el-main>
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+          <el-form-item label="电影名">
+            <el-input v-model="formInline.dym" placeholder="电影名" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="类型">
+            <el-input v-model="formInline.lx" placeholder="类型" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="豆瓣标签">
+            <el-input v-model="formInline.cybq" placeholder="豆瓣标签" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="制片国家">
+            <el-input v-model="formInline.zpgj" placeholder="制片国家" clearable></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="getlist">查询</el-button>
+          </el-form-item>
+        </el-form>
         <el-table :data="info.slice((currentPage-1)*pagesize,currentPage*pagesize)" >
-          <el-table-column prop="dym" label="电影名" width="140">
+          <el-table-column prop="dym" label="电影名" align="center">
           </el-table-column>
-          <el-table-column prop="dy" label="导演" width="120">
+          <el-table-column prop="lx" label="类型" align="center">
           </el-table-column>
-          <el-table-column prop="bj" label="编剧"> </el-table-column>
+          <el-table-column prop="zpgj" label="制片国家" align="center">
+          </el-table-column>
+          <el-table-column prop="dbpf" label="豆瓣评分" align="center">
+          </el-table-column>
+          <el-table-column prop="yjhpj" label="一句话评价" align="center">
+          </el-table-column>
+          <el-table-column prop="imdbpf" label="imdb评分" align="center">
+          </el-table-column>
+          <el-table-column prop="cybq" label="豆瓣标签" align="center">
+          </el-table-column>
         </el-table>
         <el-pagination
             @size-change="handleSizeChange"
@@ -58,18 +84,31 @@ export default {
   data() {
     return {
       currentPage: 1, // 初始页
-      pagesize: 8, //    每页的数据
+      pagesize: 6, //    每页默认的数据
       totle: 0,
-      info: []
+      info: [],
+      formInline: {
+        dym: '',
+        lx: '',
+        zpgj: '',
+        cybq: ''
+      }
     }
   },
-  mounted() {
-    this.$axios.get('/api/').then((response) => { this.info = response.data })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      })
-  },
   methods: {
+    getlist() {
+      this.$axios({
+        method: 'get',
+        url: '/api/',
+        params: {
+          dym: this.formInline.dym
+        }
+      })
+        .then((response) => { this.info = response.data })
+        .catch(function (error) { // 请求失败处理
+          console.log(error);
+        })
+    },
     // 初始页currentPage、初始每页数据数pagesize和数据data
     handleSizeChange: function (size) {
       this.pagesize = size;
