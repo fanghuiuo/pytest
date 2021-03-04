@@ -7,23 +7,26 @@
       <el-button type="info" round size="small" @click="loginout">退出</el-button>
       </el-header>
     <el-container>
-      <el-aside width="200px" >
-     <el-menu
+    <el-aside :width="iscollapse ? '64px' : '200px'" >
+      <div class="toggle-button" @click="togglecollapse">|||</div>
+     <el-menu :unique-opened="true"
       background-color="#333744"
       text-color="#fff"
-      active-text-color="#ffd04b">
+      active-text-color="#409eff" :collapse="iscollapse"
+      :collapse-transition="false"
+      >
       <!-- 一级菜单 -->
       <el-submenu index="1">
         <!-- 一级菜单模板 -->
         <template slot="title">
-          <i class="el-icon-location"></i>
+          <i class="el-icon-setting"></i>
           <span>系统管理</span>
         </template>
         <!-- 二级菜单 -->
           <el-menu-item index="1-1">
           <!-- 二级菜单模板 -->
           <template slot="title">
-           <i class="el-icon-location"></i>
+           <i class="el-icon-user"></i>
            <span>用户管理</span>
           </template>
           </el-menu-item>
@@ -31,7 +34,7 @@
       <el-submenu index="2">
         <!-- 一级菜单模板 -->
         <template slot="title">
-          <i class="el-icon-location"></i>
+          <i class="el-icon-video-camera"></i>
           <span>豆瓣电影</span>
         </template>
         <!-- 二级菜单 -->
@@ -107,7 +110,10 @@ export default {
         lx: '',
         zpgj: '',
         cybq: ''
-      }
+      },
+      // 是否折叠
+      iscollapse: false
+
     }
   },
   methods: {
@@ -140,6 +146,10 @@ export default {
       // 清空localStorage
       window.localStorage.clear()
       this.$router.push('/login')
+    },
+    // 点击按钮 切换菜单折叠
+    togglecollapse() {
+      this.iscollapse = !this.iscollapse
     }
   }
 }
@@ -161,11 +171,24 @@ export default {
     /* text-align: right;
     font-size: 12px;*/
   }
-
   .el-aside {
     background-color: #333744;
   }
+  .el-menu {
+    /* 去掉菜单右侧边框线 */
+    border-right: none;
+  }
   .el-main {
     background-color: #eaedf1;
+  }
+  /* 折叠栏样式 */
+  .toggle-button {
+    background-color: #4A5064;
+    font-size: 10px;
+    line-height: 24px; /* 行高 */
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.2em;
+    cursor: pointer; /* 鼠标放上 变小手 图标 */
   }
 </style>
