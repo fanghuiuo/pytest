@@ -7,7 +7,6 @@ from .models import UserToken
 class Loginauth(BaseAuthentication):
     def authenticate(self, request):
         # 1. 直接在请求头中获取token
-        print(request.META)
         token = request.META.get("HTTP_AUTHORIZATION")
         token_obj = UserToken.objects.filter(token=token).first()
 

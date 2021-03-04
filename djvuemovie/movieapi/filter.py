@@ -21,7 +21,7 @@ class moviefilter(django_filters.FilterSet):
         model = Dbmovie
         # 显示这两个字段
         # fields = ['dbpf_min', 'dbpf_max', 'dym']
-
+        
         fields = {
             'dym': ['icontains'],
             'dy': ['icontains'],
@@ -35,7 +35,7 @@ class moviefilter(django_filters.FilterSet):
             # 可以这样来进行大小范围搜索/movie/?imdbpf__gte=8.4&imdbpf__lte=9
             'pjrs': ['gte', 'lte'],
             'imdbpjrs': ['gte', 'lte'],
-            'dbpf': ['gt', 'lt'],
+            'dbpf': ['icontains'],
             'imdbpf': ['gt', 'lt'],
         }
 

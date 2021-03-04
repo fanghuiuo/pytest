@@ -101,7 +101,10 @@ export default {
         method: 'get',
         url: '/api/',
         params: {
-          dym: this.formInline.dym
+          dym__icontains: this.formInline.dym,
+          lx__icontains: this.formInline.lx,
+          zpgj__icontains: this.formInline.zpgj,
+          cybq__icontains: this.formInline.cybq
         }
       })
         .then((response) => { this.info = response.data })
