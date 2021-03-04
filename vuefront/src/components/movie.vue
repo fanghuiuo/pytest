@@ -1,53 +1,7 @@
 <template>
-  <el-container class="main-container">
-    <el-header >
-      <div>
-        <span>基础系统</span>
-      </div>
-      <el-button type="info" round size="small" @click="loginout">退出</el-button>
-      </el-header>
-    <el-container>
-    <el-aside :width="iscollapse ? '64px' : '200px'" >
-      <div class="toggle-button" @click="togglecollapse">|||</div>
-     <el-menu :unique-opened="true"
-      background-color="#333744"
-      text-color="#fff"
-      active-text-color="#409eff" :collapse="iscollapse"
-      :collapse-transition="false"
-      >
-      <!-- 一级菜单 -->
-      <el-submenu index="1">
-        <!-- 一级菜单模板 -->
-        <template slot="title">
-          <i class="el-icon-setting"></i>
-          <span>系统管理</span>
-        </template>
-        <!-- 二级菜单 -->
-          <el-menu-item index="1-1">
-          <!-- 二级菜单模板 -->
-          <template slot="title">
-           <i class="el-icon-user"></i>
-           <span>用户管理</span>
-          </template>
-          </el-menu-item>
-      </el-submenu>
-      <el-submenu index="2">
-        <!-- 一级菜单模板 -->
-        <template slot="title">
-          <i class="el-icon-video-camera"></i>
-          <span>豆瓣电影</span>
-        </template>
-        <!-- 二级菜单 -->
-          <el-menu-item index="2-1">
-          <!-- 二级菜单模板 -->
-          <template slot="title">
-           <i class="el-icon-location"></i>
-           <span>列表页</span>
-          </template>
-          </el-menu-item>
-      </el-submenu>
-    </el-menu>
-    </el-aside>
+
+
+
 
       <el-main>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
@@ -93,8 +47,8 @@
             :total="info.length">    //这是显示总共有多少数据
        </el-pagination>
       </el-main>
-    </el-container>
-  </el-container>
+
+
 </template>
 
 <script>

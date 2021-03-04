@@ -30,14 +30,15 @@ const router = new Router({
           path: '/user',
           name: 'user',
           component: user
+        },
+        {
+          path: '/movie',
+          name: 'movie',
+          component: movie
         }
       ]
     },
-    {
-      path: '/movie',
-      name: 'movie',
-      component: movie
-    },
+
     {
       path: '/login',
       name: 'login',
