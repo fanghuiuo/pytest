@@ -17,16 +17,31 @@
         <!-- 一级菜单模板 -->
         <template slot="title">
           <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <span>系统管理</span>
         </template>
         <!-- 二级菜单 -->
-        <el-menu-item index="1-1">
+          <el-menu-item index="1-1">
           <!-- 二级菜单模板 -->
           <template slot="title">
            <i class="el-icon-location"></i>
-           <span>子菜单</span>
+           <span>用户管理</span>
           </template>
-        </el-menu-item>
+          </el-menu-item>
+      </el-submenu>
+      <el-submenu index="2">
+        <!-- 一级菜单模板 -->
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>豆瓣电影</span>
+        </template>
+        <!-- 二级菜单 -->
+          <el-menu-item index="2-1">
+          <!-- 二级菜单模板 -->
+          <template slot="title">
+           <i class="el-icon-location"></i>
+           <span>列表页</span>
+          </template>
+          </el-menu-item>
       </el-submenu>
     </el-menu>
     </el-aside>
