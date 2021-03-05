@@ -1,9 +1,12 @@
 <template>
-
-
-
-
-      <el-main>
+<div>
+  <!-- 面包屑导航区域 -->
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>系统管理</el-breadcrumb-item>
+        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+      </el-breadcrumb>
+      <el-card class="box-card">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="电影名">
             <el-input v-model="formInline.dym" placeholder="电影名" clearable></el-input>
@@ -46,9 +49,8 @@
             layout="total, sizes, prev, pager, next, jumper"
             :total="info.length">    //这是显示总共有多少数据
        </el-pagination>
-      </el-main>
-
-
+      </el-card>
+</div>
 </template>
 
 <script>
@@ -64,10 +66,7 @@ export default {
         lx: '',
         zpgj: '',
         cybq: ''
-      },
-      // 是否折叠
-      iscollapse: false
-
+      }
     }
   },
   methods: {
