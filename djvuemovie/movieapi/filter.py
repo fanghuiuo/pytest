@@ -46,5 +46,5 @@ class userfilter(django_filters.FilterSet):
         model = User
         # fields = ['username']
         fields = {
-            'username': ['icontains'],
+            'username': ['exact'],
         }

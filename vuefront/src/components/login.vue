@@ -80,16 +80,10 @@ export default {
               if (res.data.code === 200) {
                 console.log(res.data)
                 localStorage.setItem('token', res.data.token)
-                this.$message({
-                  message: '登录成功',
-                  type: 'success'
-                })
+                this.$message.success('登录成功')
                 this.$router.push('home')	// 登录验证成功路由实现跳转到home页
               } else {
-                this.$message({
-                  message: '用户名密码不正确 登录失败',
-                  type: 'warning'
-                })
+                this.$message.warning('用户名密码不正确 登录失败')
               }
             })
             .catch(err => { // 请求错误后执行函数

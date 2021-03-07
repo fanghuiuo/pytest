@@ -88,7 +88,7 @@ export default {
       })
         .then((response) => { this.info = response.data })
         .catch(function (error) { // 请求失败处理
-          console.log(error);
+          console.log(error)
         })
     },
     // 初始页currentPage、初始每页数据数pagesize和数据data

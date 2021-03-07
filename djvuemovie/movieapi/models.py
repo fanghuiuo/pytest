@@ -51,6 +51,7 @@ class User(models.Model):
     username = models.CharField(max_length=32, verbose_name='用户名', blank=True, null=True)
     userpassword = models.CharField(max_length=32, verbose_name='用户密码', blank=True, null=True)
     is_active = models.BooleanField(default=True, verbose_name='状态', blank=True)
+    userbirthday = models.DateField(verbose_name='用户密码', blank=True, null=True)
     createtime = models.DateTimeField(auto_now_add=True, verbose_name='创建时间', blank=True, null=True)
     updatetime = models.DateTimeField(auto_now=True, blank=True, null=True)
 

@@ -35,6 +35,8 @@
               {{ scope.row.usersex === 1 ? '男' : '女' }}
             </template>
           </el-table-column>
+          <el-table-column prop="userbirthday" label="生日" align="center">
+          </el-table-column>
           <el-table-column prop="usereducation" label="学历" align="center">
             <template v-slot="scope">
               {{ scope.row.usereducation === 1 ? '高中' : scope.row.usereducation === 2 ? '本科' :scope.row.usereducation === 3 ? '硕士' : '博士'}}
@@ -74,24 +76,35 @@
             :total="info.length">    //这是显示总共有多少数据
        </el-pagination>
       </el-card>
-      <el-dialog
-        title="添加用户"
-        :visible.sync="adddialogvisible"
-        width="50%">
+      <el-dialog title="添加用户" :visible.sync="adddialogvisible" width="50%" @close="dialogclose">
         <el-form :model="dialogform"  :rules="dialogformrules" ref="dialogformref" label-width="70px">
-          <el-form-item label="姓名" prop="xm" >
-            <el-input v-model="dialogform.xm" autocomplete="off"></el-input>
+          <el-form-item label="用户名" prop="username" >
+            <el-input v-model="dialogform.username" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="性别" width="30px">
-            <el-select v-model="dialogform.xb" placeholder="性别">
+          <el-form-item label="密码" prop="userpassword" >
+            <el-input v-model="dialogform.userpassword" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="性别" width="30px" prop="usersex">
+            <el-select v-model="dialogform.usersex" placeholder="选择性别">
               <el-option label="男" value="1"></el-option>
               <el-option label="女" value="2"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="生日" prop="userbirthday" >
+            <el-date-picker type="date" placeholder="选择日期" v-model="dialogform.userbirthday" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"></el-date-picker>
+          </el-form-item>
+          <el-form-item label="学历" width="30px" prop="usereducation">
+            <el-select v-model="dialogform.usereducation" placeholder="选择学历">
+              <el-option label="高中" value="1"></el-option>
+              <el-option label="本科" value="2"></el-option>
+              <el-option label="硕士" value="3"></el-option>
+              <el-option label="博士" value="4"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="adddialogvisible = false">取 消</el-button>
-          <el-button type="primary" @click="adddialogvisible = false">确 定</el-button>
+          <el-button type="primary" @click="adduser">确 定</el-button>
         </span>
       </el-dialog>
 </div>
@@ -106,27 +119,46 @@ export default {
       totle: 0,
       info: [],
       username: '',
+      // 添加用户弹出框可见
       adddialogvisible: false,
+      // 添加用户
       dialogform: {
-        xm: '',
-        xb: '',
-        xl: ''
+        username: '',
+        userpassword: '',
+        usersex: '',
+        usereducation: '',
+        userbirthday: ''
       },
       dialogformrules: {
-        xm: [
+        username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
           { min: 1, max: 12, message: '长度在 1 到 12个字符', trigger: 'blur' }
+        ],
+        userpassword: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 1, max: 12, message: '长度在 1 到 12个字符', trigger: 'blur' }
+        ],
+        usersex: [
+          { required: true, message: '请选择性别', trigger: 'change' }
+        ],
+        // 把 校验 中的 type:date 去掉 防止报错
+        userbirthday: [
+          { required: true, message: '请选择日期', trigger: 'change' }
+        ],
+        usereducation: [
+          { required: true, message: '请选择学历', trigger: 'change' }
         ]
       }
     }
   },
   methods: {
+    // 得到用户列表
     getlist() {
       this.$axios({
         method: 'get',
         url: '/api/user/',
         params: {
-          username__icontains: this.username
+          username: this.username
         }
       })
         .then((response) => {
@@ -134,7 +166,7 @@ export default {
           console.log(response.data)
         })
         .catch(function (error) { // 请求失败处理
-          console.log(error);
+          console.log(error)
         })
     },
     // 初始页currentPage、初始每页数据数pagesize和数据data
@@ -146,9 +178,11 @@ export default {
       this.currentPage = currentPage;
       console.log(this.currentPage) // 点击第几页
     },
+    // 用户列表加序号字段
     table_index(index) {
       return (this.currentPage - 1) * this.pagesize + index + 1
     },
+    // 监听 状态按钮 改变用户状态
     activechange(rowdata) {
       console.log(rowdata)
       this.$axios({
@@ -162,8 +196,71 @@ export default {
           console.log(response)
         })
         .catch(function (error) { // 请求失败处理
-          console.log(error);
+          console.log(error)
         })
+    },
+    // 关闭dialog 重置添加用户form
+    dialogclose() {
+      this.$refs.dialogformref.resetFields()
+    },
+    // 添加用户
+    adduser() {
+      console.log(this.dialogform)
+      this.$refs.dialogformref.validate(valid => {
+        console.log(valid)
+        // 校验不通过 返回
+        if (!valid) return
+        // 校验通过 先验证用户是否已存在
+        this.$axios({
+          method: 'get',
+          url: '/api/user/',
+          params: {
+            username: this.dialogform.username
+          }
+        })
+          .then((response) => {
+            console.log(response.data.length)
+            if (response.data.length !== 0) {
+              // 用户存在 返回
+              this.$message.warning('用户已存在 请更换用户名')
+              this.dialogform.username = ''
+            } else {
+              // 用户不存在 post
+              this.$axios({
+                method: 'post',
+                url: '/api/user/',
+                data: {
+                  username: this.dialogform.username,
+                  userpassword: this.dialogform.userpassword,
+                  usersex: this.dialogform.usersex,
+                  usereducation: this.dialogform.usereducation,
+                  userbirthday: this.dialogform.userbirthday,
+                  is_active: 0
+                }
+              })
+                .then((response) => {
+                  console.log(response)
+                  if (response.status == 201) {
+                    this.$message.success('新增用户成功')
+                    // 成功后隐藏 新增用户弹出框
+                    this.adddialogvisible = false
+                    // 新增用户成功后刷新用户列表
+                    this.getlist()
+                  } else {
+                    this.$message.warning('新增用户失败')
+                  }
+                })
+                .catch(function (error) { // 请求失败处理
+                  console.log(error)
+                  this.$message.error('新增用户产生错误')
+                })
+            }
+          })
+          .catch(function (error) { // 请求失败处理
+            console.log(error)
+            this.$message.error('产生错误')
+          })
+      })
     }
   }
 }
