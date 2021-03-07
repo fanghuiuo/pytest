@@ -5,4 +5,13 @@ html,body,#app {
 }
 .el-breadcrumb {
     padding-bottom: 15px;
+    font-size: 12px;
+}
+.el-table {
+    font-size: 13px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.el-form {
+    font-size: 12px;
 }

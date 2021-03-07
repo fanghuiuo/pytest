@@ -5,11 +5,11 @@ from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 
 schema_view = get_schema_view(title='Users API', renderer_classes=[OpenAPIRenderer, SwaggerUIRenderer])
 urlpatterns = [
-    path('api/', movieviewset.as_view({
+    path('api/movie/', movieviewset.as_view({
         'get': 'list',
         'post': 'create'
     })),
-    path('api/<int:pk>', movieviewset.as_view({
+    path('api/movie/<int:pk>', movieviewset.as_view({
         'get': 'retrieve',
         'put': 'update',
         'delete': 'destroy'
@@ -21,4 +21,13 @@ urlpatterns = [
     path('login/', LoginView.as_view()),
     # path('api/queryfind', movieviewset.as_view({'get': 'queryfind'})),
     # path('', movieviewset.axios),  # 模板页
+    path('api/user/', userviewset.as_view({
+        'get': 'list',
+        'post': 'create'
+    })),
+    path('api/user/<int:pk>', userviewset.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'delete': 'destroy'
+    })),
 ]

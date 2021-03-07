@@ -42,7 +42,7 @@
           <!-- 二级菜单模板 -->
           <template slot="title">
            <i class="el-icon-location"></i>
-           <span>列表页</span>
+           <span>TOP250</span>
           </template>
           </el-menu-item>
       </el-submenu>

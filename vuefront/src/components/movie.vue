@@ -3,11 +3,13 @@
   <!-- 面包屑导航区域 -->
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>系统管理</el-breadcrumb-item>
-        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+        <el-breadcrumb-item>豆瓣电影</el-breadcrumb-item>
+        <el-breadcrumb-item>TOP250</el-breadcrumb-item>
       </el-breadcrumb>
+       <!-- 卡片区域 -->
       <el-card class="box-card">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <!-- 搜索框区域 -->
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small">
           <el-form-item label="电影名">
             <el-input v-model="formInline.dym" placeholder="电影名" clearable></el-input>
           </el-form-item>
@@ -24,7 +26,10 @@
             <el-button type="primary" @click="getlist">查询</el-button>
           </el-form-item>
         </el-form>
+        <!-- 表格区域 -->
         <el-table :data="info.slice((currentPage-1)*pagesize,currentPage*pagesize)" >
+          <el-table-column type="index"  label="序号" :index="table_index">
+          </el-table-column>
           <el-table-column prop="dym" label="电影名" align="center">
           </el-table-column>
           <el-table-column prop="lx" label="类型" align="center">
@@ -58,7 +63,7 @@ export default {
   data() {
     return {
       currentPage: 1, // 初始页
-      pagesize: 6, //    每页默认的数据
+      pagesize: 5, //    每页默认的数据
       totle: 0,
       info: [],
       formInline: {
@@ -73,7 +78,7 @@ export default {
     getlist() {
       this.$axios({
         method: 'get',
-        url: '/api/',
+        url: '/api/movie/',
         params: {
           dym__icontains: this.formInline.dym,
           lx__icontains: this.formInline.lx,
@@ -95,53 +100,11 @@ export default {
       this.currentPage = currentPage;
       console.log(this.currentPage) // 点击第几页
     },
-    loginout() {
-      // 清空localStorage
-      window.localStorage.clear()
-      this.$router.push('/login')
-    },
-    // 点击按钮 切换菜单折叠
-    togglecollapse() {
-      this.iscollapse = !this.iscollapse
+    table_index(index) {
+      return (this.currentPage - 1) * this.pagesize + index + 1
     }
   }
 }
 </script>
-
 <style scoped>
-  .main-container{
-    height: 100%;
-  }
-  .el-header {
-    background-color: #373D41;
-    display: flex;
-    justify-content: space-between;
-    padding-left: 50px; /*字离左边 */
-    align-items: center;
-    color: #fff;
-    font-size: 20px;
-
-    /* text-align: right;
-    font-size: 12px;*/
-  }
-  .el-aside {
-    background-color: #333744;
-  }
-  .el-menu {
-    /* 去掉菜单右侧边框线 */
-    border-right: none;
-  }
-  .el-main {
-    background-color: #eaedf1;
-  }
-  /* 折叠栏样式 */
-  .toggle-button {
-    background-color: #4A5064;
-    font-size: 10px;
-    line-height: 24px; /* 行高 */
-    color: #fff;
-    text-align: center;
-    letter-spacing: 0.2em;
-    cursor: pointer; /* 鼠标放上 变小手 图标 */
-  }
 </style>

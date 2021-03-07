@@ -21,7 +21,7 @@ class moviefilter(django_filters.FilterSet):
         model = Dbmovie
         # 显示这两个字段
         # fields = ['dbpf_min', 'dbpf_max', 'dym']
-        
+
         fields = {
             'dym': ['icontains'],
             'dy': ['icontains'],
@@ -44,4 +44,7 @@ class userfilter(django_filters.FilterSet):
 
     class Meta:
         model = User
-        fields = ['username', 'userpassword']
+        # fields = ['username']
+        fields = {
+            'username': ['icontains'],
+        }
