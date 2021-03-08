@@ -55,10 +55,10 @@
           <el-table-column label="操作" align="center" width="200px">
             <template v-slot="scope">
               <el-tooltip  effect="dark" content="修改" placement="top" :enterable="false">
-                <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
+                <el-button type="primary" icon="el-icon-edit" size="mini" @click="useredit(scope.row)"></el-button>
               </el-tooltip>
               <el-tooltip  effect="dark" content="删除" placement="top" :enterable="false">
-                <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteuser(scope.row.id)"></el-button>
               </el-tooltip>
               <el-tooltip  effect="dark" content="分配角色" placement="top" :enterable="false">
                 <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
@@ -76,16 +76,21 @@
             :total="info.length">    //这是显示总共有多少数据
        </el-pagination>
       </el-card>
-      <el-dialog title="添加用户" :visible.sync="adddialogvisible" width="50%" @close="dialogclose">
+      <!--prop 是校验用的属性 -->
+      <el-dialog :title="dialogform.title" :visible.sync="adddialogvisible" width="50%" @close="dialogclose">
         <el-form :model="dialogform"  :rules="dialogformrules" ref="dialogformref" label-width="70px">
+           <!--隐藏id字段 -->
+          <el-form-item label="id" v-show="false">
+            <el-input v-model="dialogform.id"></el-input>
+          </el-form-item>
           <el-form-item label="用户名" prop="username" >
-            <el-input v-model="dialogform.username" autocomplete="off"></el-input>
+            <el-input v-model="dialogform.username" autocomplete="off" :disabled="usernamedisabled"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="userpassword" >
             <el-input v-model="dialogform.userpassword" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="性别" width="30px" prop="usersex">
-            <el-select v-model="dialogform.usersex" placeholder="选择性别">
+            <el-select v-model="dialogform.usersex" placeholder="选择性别" >
               <el-option label="男" value="1"></el-option>
               <el-option label="女" value="2"></el-option>
             </el-select>
@@ -104,7 +109,7 @@
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="adddialogvisible = false">取 消</el-button>
-          <el-button type="primary" @click="adduser">确 定</el-button>
+          <el-button type="primary" @click="userconfirm">确 定</el-button>
         </span>
       </el-dialog>
 </div>
@@ -121,13 +126,17 @@ export default {
       username: '',
       // 添加用户弹出框可见
       adddialogvisible: false,
+      // 修改时 用户名对话框 不可编辑
+      usernamedisabled: false,
       // 添加用户
       dialogform: {
+        id: 0,
         username: '',
         userpassword: '',
         usersex: '',
         usereducation: '',
-        userbirthday: ''
+        userbirthday: '',
+        title: ''
       },
       dialogformrules: {
         username: [
@@ -202,6 +211,94 @@ export default {
     // 关闭dialog 重置添加用户form
     dialogclose() {
       this.$refs.dialogformref.resetFields()
+    },
+    // 删除用户
+    deleteuser(userid) {
+      // 弹框询问是否删除
+      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios({
+          method: 'delete',
+          url: '/api/user/' + userid
+        })
+          .then((response) => {
+            if (response.status == 204) {
+              this.$message.success('删除成功')
+              // 刷新列表
+              this.getlist()
+            } else {
+              this.$message.warning('删除失败')
+            }
+          })
+          .catch(function (error) { // 请求失败处理
+            console.log(error)
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+    },
+    // 弹出框 确定按钮 判断 新增用户还是修改用户 执行相应函数
+    userconfirm() {
+      console.log(this.dialogform.id)
+      if (this.dialogform.title == '修改用户') {
+        this.usereditput()
+      } else {
+        this.adduser()
+      }
+    },
+    // select 下拉框 赋值后 强制刷新
+    // 修改用户
+    useredit(rowdata) {
+      this.adddialogvisible = true
+      this.usernamedisabled = true
+      this.dialogform.title = '修改用户'
+      this.dialogform.id = rowdata.id
+      this.dialogform.username = rowdata.username
+      this.dialogform.userpassword = rowdata.userpassword
+      // v-model 绑定数据类型 string rowdata.usersex 是number 要转换一致
+      this.dialogform.usersex = rowdata.usersex.toString()
+      this.dialogform.userbirthday = rowdata.userbirthday
+      this.dialogform.usereducation = rowdata.usereducation.toString()
+    },
+    // 修改用户提交
+    usereditput() {
+      // 进行校验
+      this.$refs.dialogformref.validate(valid => {
+        // 校验不通过 返回
+        if (!valid) return
+        // 校验通过 提交修改
+        this.$axios({
+          method: 'put',
+          url: '/api/user/' + this.dialogform.id,
+          data: {
+            userpassword: this.dialogform.userpassword,
+            usersex: this.dialogform.usersex,
+            userbirthday: this.dialogform.userbirthday,
+            usereducation: this.dialogform.usereducation
+          }
+        })
+          .then((response) => {
+            if (response.status == 200) {
+              this.$message.success('修改用户成功')
+              // 成功后隐藏 新增用户弹出框
+              this.adddialogvisible = false
+              // 新增用户成功后刷新用户列表
+              this.getlist()
+            } else {
+              this.$message.warning('修改用户失败')
+            }
+          })
+          .catch(function (error) { // 请求失败处理
+            console.log(error)
+            this.$message.error('修改用户产生错误')
+          })
+      })
     },
     // 添加用户
     adduser() {
