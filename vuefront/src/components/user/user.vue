@@ -136,7 +136,7 @@ export default {
         usersex: '',
         usereducation: '',
         userbirthday: '',
-        title: ''
+        title: '添加用户'
       },
       dialogformrules: {
         username: [
