@@ -20,18 +20,41 @@
         <!-- 一级菜单模板 -->
         <template slot="title">
           <i class="el-icon-setting"></i>
-          <span>系统管理</span>
+          <span>用户管理</span>
         </template>
         <!-- 二级菜单 -->
           <el-menu-item index="user" >
           <!-- 二级菜单模板 -->
           <template slot="title">
            <i class="el-icon-user"></i>
-           <span>用户管理</span>
+           <span>用户列表</span>
           </template>
           </el-menu-item>
       </el-submenu>
       <el-submenu index="2">
+        <!-- 一级菜单模板 -->
+        <template slot="title">
+          <i class="el-icon-video-camera"></i>
+          <span>权限管理</span>
+        </template>
+        <!-- 二级菜单 -->
+          <el-menu-item index="userpermission">
+          <!-- 二级菜单模板 -->
+          <template slot="title">
+           <i class="el-icon-location"></i>
+           <span>权限列表</span>
+          </template>
+          </el-menu-item>
+           <!-- 二级菜单 -->
+          <el-menu-item index="userrole">
+          <!-- 二级菜单模板 -->
+          <template slot="title">
+           <i class="el-icon-location"></i>
+           <span>角色列表</span>
+          </template>
+          </el-menu-item>
+      </el-submenu>
+      <el-submenu index="3">
         <!-- 一级菜单模板 -->
         <template slot="title">
           <i class="el-icon-video-camera"></i>
