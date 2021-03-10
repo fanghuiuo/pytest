@@ -65,7 +65,7 @@ class userviewset(viewsets.ModelViewSet):
 class Permissionviewset(viewsets.ModelViewSet):
     authentication_classes = [Loginauth, ]
     permission_calsses = [MyPermission, ]
-    queryset = Permission.objects.all().order_by('id')
+    queryset = Permission.objects.all().order_by('pmid')
     serializer_class = Permissionserializer
     filter_class = Permissionfilter
 
@@ -73,7 +73,7 @@ class Permissionviewset(viewsets.ModelViewSet):
 class Roleviewset(viewsets.ModelViewSet):
     authentication_classes = [Loginauth, ]
     permission_calsses = [MyPermission, ]
-    queryset = Role.objects.all().order_by('id')
+    queryset = Role.objects.all().order_by('roleid')
     serializer_class = Roleserializer
     filter_class = Rolefilter
 
