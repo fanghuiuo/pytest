@@ -1,6 +1,7 @@
 from django.db import models
 
 
+# top250电影表
 class Dbmovie(models.Model):
     dym = models.CharField(max_length=250, blank=True, null=True, verbose_name='电影名')
     dy = models.CharField(max_length=250, blank=True, null=True, verbose_name='导演')
@@ -31,6 +32,7 @@ class Dbmovie(models.Model):
         return self.dym
 
 
+# 用户表
 class User(models.Model):
 
     user_type_choices = (
@@ -45,6 +47,7 @@ class User(models.Model):
         (3, '硕士'),
         (4, '博士'),
     )
+    roleid = models.IntegerField(blank=True, null=True, verbose_name='角色id')
     usersex = models.IntegerField(choices=user_sex_choices, verbose_name='性别', blank=True, null=True)
     usertype = models.IntegerField(choices=user_type_choices, blank=True, null=True)
     usereducation = models.IntegerField(choices=user_education_choices, blank=True, null=True)
@@ -63,6 +66,7 @@ class User(models.Model):
         return self.username
 
 
+# token表
 class UserToken(models.Model):
     token = models.CharField(max_length=64)
     username = models.OneToOneField(to='User', on_delete=models.CASCADE)
@@ -73,3 +77,35 @@ class UserToken(models.Model):
 
     def __str__(self):
         return self.token
+
+
+# 角色表
+class Role(models.Model):
+    roleid = models.AutoField(primary_key=True)
+    rolename = models.CharField(max_length=50, blank=True, null=True, verbose_name='角色名称')
+    roledec = models.CharField(max_length=50, blank=True, null=True, verbose_name='角色说明')
+    pmids = models.IntegerField(blank=True, null=True, verbose_name='权限id集合')
+
+    class Meta:
+        managed = True
+        db_table = 'Role'
+
+    def __str__(self):
+        return self.rolename
+
+
+# 权限表
+class Permission(models.Model):
+    pmid = models.AutoField(primary_key=True)
+    pm_pid = models.IntegerField(blank=True, null=True, verbose_name='父id')
+    pmname = models.CharField(max_length=50, blank=True, null=True, verbose_name='权限名称')
+    pmurl = models.CharField(max_length=100, blank=True, null=True, verbose_name='权限路径')
+    pmlevel = models.IntegerField(blank=True, null=True, verbose_name='权限等级')  # 0是一级菜单，1是二级菜单，3是页面按钮级别
+    pmaction = models.CharField(max_length=100, blank=True, null=True, verbose_name='操作动作')  # add,del,modify,search
+
+    class Meta:
+        managed = True
+        db_table = 'Permission'
+
+    def __str__(self):
+        return self.pmname

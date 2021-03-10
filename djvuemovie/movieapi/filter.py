@@ -1,5 +1,5 @@
 import django_filters
-from .models import Dbmovie, User
+from .models import Dbmovie, User, Permission, Role
 
 
 class moviefilter(django_filters.FilterSet):
@@ -47,4 +47,24 @@ class userfilter(django_filters.FilterSet):
         # fields = ['username']
         fields = {
             'username': ['exact'],
+        }
+
+
+class Permissionfilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Permission
+        # fields = ['username']
+        fields = {
+            'pmname': ['exact'],
+        }
+
+
+class Rolefilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Role
+        # fields = ['username']
+        fields = {
+            'rolename': ['exact'],
         }

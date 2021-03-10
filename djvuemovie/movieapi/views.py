@@ -1,11 +1,11 @@
 from rest_framework import viewsets
-from .models import Dbmovie, User, UserToken
-from .serializer import movieserializer, userserializer
+from .models import Dbmovie, User, UserToken, Permission, Role
+from .serializer import movieserializer, userserializer, Permissionserializer, Roleserializer
 # from rest_framework.response import Response
 # from .page import fenye
 # from django.shortcuts import render
 # from django.db.models import Q
-from .filter import moviefilter, userfilter
+from .filter import moviefilter, userfilter, Permissionfilter, Rolefilter
 import hashlib
 from rest_framework.views import APIView
 import time
@@ -62,6 +62,30 @@ class userviewset(viewsets.ModelViewSet):
     filter_class = userfilter
 
 
+class Permissionviewset(viewsets.ModelViewSet):
+    authentication_classes = [Loginauth, ]
+    permission_calsses = [MyPermission, ]
+    queryset = Permission.objects.all().order_by('id')
+    serializer_class = Permissionserializer
+    filter_class = Permissionfilter
+
+
+class Roleviewset(viewsets.ModelViewSet):
+    authentication_classes = [Loginauth, ]
+    permission_calsses = [MyPermission, ]
+    queryset = Role.objects.all().order_by('id')
+    serializer_class = Roleserializer
+    filter_class = Rolefilter
+
+
+# 生成token
+def md5(user):
+    ctime = str(time.time())
+    m = hashlib.md5('user'.encode('utf-8'))
+    m.update(ctime.encode('utf-8'))
+    return m.hexdigest()
+
+
 class LoginView(APIView):
 
     def post(self, request, *args, **kwargs):
@@ -90,11 +114,3 @@ class LoginView(APIView):
         except Exception as e:
             print(e)
             return Response({"code": 500, "error": "用户名或密码错误"})
-
-
-# 生成token
-def md5(user):
-    ctime = str(time.time())
-    m = hashlib.md5('user'.encode('utf-8'))
-    m.update(ctime.encode('utf-8'))
-    return m.hexdigest()

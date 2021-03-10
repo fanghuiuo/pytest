@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import movie from '@/components/movie'
+import movie from '@/components/movie/movie'
 import login from '@/components/login'
 import home from '@/components/home'
 import welcome from '@/components/welcome'
 import user from '@/components/user/user'
-import userpermission from '@/components/user/userpermission'
-import userrole from '@/components/user/userrole'
+import permission from '@/components/power/permission'
+import role from '@/components/power/role'
 
 Vue.use(Router)
 
@@ -34,14 +34,14 @@ const router = new Router({
           component: user
         },
         {
-          path: '/userpermission',
-          name: 'userpermission',
-          component: userpermission
+          path: '/permission',
+          name: 'permission',
+          component: permission
         },
         {
-          path: '/userrole',
-          name: 'userrole',
-          component: userrole
+          path: '/role',
+          name: 'role',
+          component: role
         },
         {
           path: '/movie',
