@@ -28,6 +28,11 @@
           <el-table-column prop="pmurl" label="路径" align="center">
           </el-table-column>
           <el-table-column prop="pmlevel" label="权限等级" align="center">
+             <template v-slot="scope">
+              <el-tag v-if="scope.row.pmlevel == 0">一级</el-tag>
+              <el-tag type="success" v-if="scope.row.pmlevel == 1">二级</el-tag>
+              <el-tag type="warning" v-if="scope.row.pmlevel == 2">三级</el-tag>
+            </template>
           </el-table-column>
         </el-table>
         <el-pagination

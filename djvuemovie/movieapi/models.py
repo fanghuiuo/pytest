@@ -47,14 +47,14 @@ class User(models.Model):
         (3, '硕士'),
         (4, '博士'),
     )
-    roleid = models.IntegerField(blank=True, null=True, verbose_name='角色id')
-    usersex = models.IntegerField(choices=user_sex_choices, verbose_name='性别', blank=True, null=True)
-    usertype = models.IntegerField(choices=user_type_choices, blank=True, null=True)
-    usereducation = models.IntegerField(choices=user_education_choices, blank=True, null=True)
     username = models.CharField(max_length=32, verbose_name='用户名', blank=True, null=True)
     userpassword = models.CharField(max_length=32, verbose_name='用户密码', blank=True, null=True)
-    is_active = models.BooleanField(default=True, verbose_name='状态', blank=True)
+    usersex = models.IntegerField(choices=user_sex_choices, verbose_name='性别', blank=True, null=True)
+    usereducation = models.IntegerField(choices=user_education_choices, blank=True, null=True)
     userbirthday = models.DateField(verbose_name='用户密码', blank=True, null=True)
+    roleid = models.IntegerField(blank=True, null=True, verbose_name='角色id')
+    usertype = models.IntegerField(choices=user_type_choices, blank=True, null=True)
+    is_active = models.BooleanField(default=True, verbose_name='状态', blank=True)
     createtime = models.DateTimeField(auto_now_add=True, verbose_name='创建时间', blank=True, null=True)
     updatetime = models.DateTimeField(auto_now=True, blank=True, null=True)
 
