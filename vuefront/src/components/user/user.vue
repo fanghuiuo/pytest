@@ -58,7 +58,7 @@
                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="useredit(scope.row)"></el-button>
               </el-tooltip>
               <el-tooltip  effect="dark" content="删除" placement="top" :enterable="false">
-                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteuser(scope.row.id)"></el-button>
+                <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteuser(scope.row.id)" :disabled="isdeldisabled(scope.row.id)"></el-button>
               </el-tooltip>
               <el-tooltip  effect="dark" content="分配角色" placement="top" :enterable="false">
                 <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
@@ -190,6 +190,15 @@ export default {
     // 用户列表加序号字段
     table_index(index) {
       return (this.currentPage - 1) * this.pagesize + index + 1
+    },
+    // 判断如果数据行是登录用户，则不可删除自己
+    isdeldisabled(id) {
+      console.log(id + 'www')
+      console.log(localStorage.getItem('userid') + 'www')
+      if (localStorage.getItem('userid') == id) {
+        return true
+      }
+      return false
     },
     // 监听 状态按钮 改变用户状态
     activechange(rowdata) {

@@ -80,6 +80,8 @@ export default {
               if (res.data.code === 200) {
                 console.log(res.data)
                 localStorage.setItem('token', res.data.token)
+                localStorage.setItem('userid', res.data.user.id)
+                console.log(localStorage)
                 this.$message.success('登录成功')
                 this.$router.push('home')	// 登录验证成功路由实现跳转到home页
               } else {
