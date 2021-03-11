@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import movieviewset, userviewset, LoginView
+from .views import movieviewset, userviewset, LoginView, Permissionviewset, Roleviewset
 from rest_framework.schemas import get_schema_view
 from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 
@@ -8,6 +8,12 @@ urlpatterns = [
     path('api/movie/', movieviewset.as_view({
         'get': 'list',
         'post': 'create'
+    })),
+    path('api/permission/', Permissionviewset.as_view({
+        'get': 'list'
+    })),
+    path('api/role/', Roleviewset.as_view({
+        'get': 'list'
     })),
     path('api/movie/<int:pk>', movieviewset.as_view({
         'get': 'retrieve',

@@ -38,7 +38,7 @@
           <span>权限管理</span>
         </template>
         <!-- 二级菜单 -->
-          <el-menu-item index="userpermission">
+          <el-menu-item index="permission">
           <!-- 二级菜单模板 -->
           <template slot="title">
            <i class="el-icon-location"></i>
@@ -46,7 +46,7 @@
           </template>
           </el-menu-item>
            <!-- 二级菜单 -->
-          <el-menu-item index="userrole">
+          <el-menu-item index="role">
           <!-- 二级菜单模板 -->
           <template slot="title">
            <i class="el-icon-location"></i>
