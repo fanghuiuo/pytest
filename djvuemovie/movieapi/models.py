@@ -81,11 +81,10 @@ class UserToken(models.Model):
 
 # 角色表
 class Role(models.Model):
-    # roleid = models.AutoField(primary_key=True)
-    roleid = models.IntegerField(primary_key=True)
+    roleid = models.AutoField(primary_key=True)
     rolename = models.CharField(max_length=50, blank=True, null=True, verbose_name='角色名称')
     roledec = models.CharField(max_length=50, blank=True, null=True, verbose_name='角色说明')
-    pmids = models.IntegerField(blank=True, null=True, verbose_name='权限id集合')
+    pmids = models.CharField(max_length=300, blank=True, null=True, verbose_name='权限id集合')
 
     class Meta:
         managed = True

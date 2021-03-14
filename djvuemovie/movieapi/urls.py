@@ -9,11 +9,21 @@ urlpatterns = [
         'get': 'list',
         'post': 'create'
     })),
+    # 权限list
     path('api/permission/', Permissionviewset.as_view({
         'get': 'list'
     })),
+    # 权限tree
+    #path('api/permissiontree/', PermissiontreeView.as_view()),
+    # 角色
     path('api/role/', Roleviewset.as_view({
-        'get': 'list'
+        'get': 'list',
+        'post': 'create'
+    })),
+    path('api/role/<int:pk>', Roleviewset.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'delete': 'destroy'
     })),
     path('api/movie/<int:pk>', movieviewset.as_view({
         'get': 'retrieve',
@@ -24,6 +34,7 @@ urlpatterns = [
     path('api/login', userviewset.as_view({
         'get': 'list',
     })),
+    # login
     path('login/', LoginView.as_view()),
     # path('api/queryfind', movieviewset.as_view({'get': 'queryfind'})),
     # path('', movieviewset.axios),  # 模板页

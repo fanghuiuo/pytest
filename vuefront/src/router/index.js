@@ -7,7 +7,6 @@ import welcome from '@/components/welcome'
 import user from '@/components/user/user'
 import permission from '@/components/power/permission'
 import role from '@/components/power/role'
-
 Vue.use(Router)
 
 const router = new Router({

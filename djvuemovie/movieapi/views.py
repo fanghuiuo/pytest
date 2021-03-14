@@ -11,6 +11,8 @@ from rest_framework.views import APIView
 import time
 from rest_framework.response import Response
 from .myauth import Loginauth, MyPermission
+# from django.forms.models import model_to_dict
+# from django.http import JsonResponse
 
 
 class movieviewset(viewsets.ModelViewSet):
@@ -36,11 +38,14 @@ class movieviewset(viewsets.ModelViewSet):
     # 过滤类
     filter_class = moviefilter
     # 指定认证类
-    authentication_classes = [Loginauth, ]
-    permission_calsses = [MyPermission, ]
+    authentication_classes = [
+        Loginauth,
+    ]
+    permission_calsses = [
+        MyPermission,
+    ]
 
     # pagination_class = fenye  #分页
-
     '''
 
     def queryfind(self, request):
@@ -55,24 +60,36 @@ class movieviewset(viewsets.ModelViewSet):
 
 
 class userviewset(viewsets.ModelViewSet):
-    authentication_classes = [Loginauth, ]
-    permission_calsses = [MyPermission, ]
+    authentication_classes = [
+        Loginauth,
+    ]
+    permission_calsses = [
+        MyPermission,
+    ]
     queryset = User.objects.all().order_by('id')
     serializer_class = userserializer
     filter_class = userfilter
 
 
 class Permissionviewset(viewsets.ModelViewSet):
-    authentication_classes = [Loginauth, ]
-    permission_calsses = [MyPermission, ]
+    authentication_classes = [
+        Loginauth,
+    ]
+    permission_calsses = [
+        MyPermission,
+    ]
     queryset = Permission.objects.all().order_by('pmid')
     serializer_class = Permissionserializer
     filter_class = Permissionfilter
 
 
 class Roleviewset(viewsets.ModelViewSet):
-    authentication_classes = [Loginauth, ]
-    permission_calsses = [MyPermission, ]
+    authentication_classes = [
+        Loginauth,
+    ]
+    permission_calsses = [
+        MyPermission,
+    ]
     queryset = Role.objects.all().order_by('roleid')
     serializer_class = Roleserializer
     filter_class = Rolefilter
@@ -87,7 +104,6 @@ def md5(user):
 
 
 class LoginView(APIView):
-
     def post(self, request, *args, **kwargs):
         try:
             username = request.data["username"]
@@ -114,3 +130,35 @@ class LoginView(APIView):
         except Exception as e:
             print(e)
             return Response({"code": 500, "error": "用户名或密码错误"})
+
+
+'''
+def list_to_tree(data):
+    # out = {0: {'pmid': 0, 'pm_pid': 0, 'pmname': "Root node", 'children': []}}
+    out = {}
+
+    for p in data:
+        out.setdefault(p['pm_pid'], {'children': []})
+        out.setdefault(p['pmid'], {'children': []})
+        out[p['pmid']].update(p)
+        out[p['pm_pid']]['children'].append(out[p['pmid']])
+
+    return out[0]
+
+
+class PermissiontreeView(APIView):
+    def get(self, request, *args, **kwargs):
+        # 这里获取所有数据
+        menu_obj = Permission.objects.all()
+        # json
+        json_list = []
+        for i in menu_obj:
+            json_dict = model_to_dict(i)
+            json_list.append(json_dict)
+        print(json_list)
+        tree_list = list_to_tree(json_list)
+        print('\n')
+        print(tree_list)
+        # return Response({"code": 200, "msg": "OK", "tree_list": tree_list})
+        return JsonResponse(tree_list, safe=False)
+'''
