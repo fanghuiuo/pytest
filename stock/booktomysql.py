@@ -15,8 +15,6 @@ def exceltomysql(file):
     '''
     df.to_sql(name='book_dbbook', con=ce, if_exists="append", index=False, chunksize=100)
     print('success')
-
-
 if __name__ == '__main__':
     file = 'd:/book.xlsx'
     exceltomysql(file)
