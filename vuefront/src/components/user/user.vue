@@ -61,7 +61,7 @@
                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteuser(scope.row.id)" :disabled="isdeldisabled(scope.row.id)"></el-button>
               </el-tooltip>
               <el-tooltip  effect="dark" content="分配角色" placement="top" :enterable="false">
-                <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+                <el-button type="warning" icon="el-icon-setting" size="mini" @click="assignrole"></el-button>
               </el-tooltip>
             </template>
           </el-table-column>
@@ -76,7 +76,7 @@
             :total="info.length">    //这是显示总共有多少数据
        </el-pagination>
       </el-card>
-      <!--prop 是校验用的属性 -->
+      <!--dialo修改新增用户弹出框 prop 是校验用的属性 -->
       <el-dialog :title="dialogform.title" :visible.sync="adddialogvisible" width="50%" @close="dialogclose">
         <el-form :model="dialogform"  :rules="dialogformrules" ref="dialogformref" label-width="70px">
            <!--隐藏id字段 -->
@@ -112,6 +112,42 @@
           <el-button type="primary" @click="userconfirm">确 定</el-button>
         </span>
       </el-dialog>
+      <!--dialo分配角色弹出框 -->
+      <el-dialog :title="分配角色" :visible.sync="roledialogvisible" width="50%" @close="roledialogclose">
+        <el-form :model="roledialogform"   ref="roledialogformref" label-width="70px">
+           <!--隐藏id字段 -->
+          <el-form-item label="roleid" v-show="false">
+            <el-input v-model="dialogform.roleid"></el-input>
+          </el-form-item>
+          <el-form-item label="用户名" prop="username" >
+            <el-input v-model="dialogform.username" autocomplete="off" disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="原角色" prop="rolename" >
+            <el-input v-model="dialogform.rolename" autocomplete="off" disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="新角色" width="30px" prop="roleid">
+            <el-select v-model="dialogform.roleid" placeholder="选择角色" >
+              <el-option label="男" value="1"></el-option>
+              <el-option label="女" value="2"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="生日" prop="userbirthday" >
+            <el-date-picker type="date" placeholder="选择日期" v-model="dialogform.userbirthday" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"></el-date-picker>
+          </el-form-item>
+          <el-form-item label="学历" width="30px" prop="usereducation">
+            <el-select v-model="dialogform.usereducation" placeholder="选择学历">
+              <el-option label="高中" value="1"></el-option>
+              <el-option label="本科" value="2"></el-option>
+              <el-option label="硕士" value="3"></el-option>
+              <el-option label="博士" value="4"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="roledialogvisible = false">取 消</el-button>
+          <el-button type="primary" @click="userconfirm">确 定</el-button>
+        </span>
+      </el-dialog>
 </div>
 </template>
 
@@ -126,6 +162,8 @@ export default {
       username: '',
       // 添加用户弹出框可见
       adddialogvisible: false,
+      // 分配角色弹出框可见
+      roledialogvisible: false,
       // 修改时 用户名对话框 不可编辑
       usernamedisabled: false,
       // 添加用户
