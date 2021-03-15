@@ -131,17 +131,6 @@
               <el-option label="女" value="2"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="生日" prop="userbirthday" >
-            <el-date-picker type="date" placeholder="选择日期" v-model="dialogform.userbirthday" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"></el-date-picker>
-          </el-form-item>
-          <el-form-item label="学历" width="30px" prop="usereducation">
-            <el-select v-model="dialogform.usereducation" placeholder="选择学历">
-              <el-option label="高中" value="1"></el-option>
-              <el-option label="本科" value="2"></el-option>
-              <el-option label="硕士" value="3"></el-option>
-              <el-option label="博士" value="4"></el-option>
-            </el-select>
-          </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="roledialogvisible = false">取 消</el-button>
