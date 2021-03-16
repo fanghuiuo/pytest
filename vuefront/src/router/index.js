@@ -7,6 +7,7 @@ import welcome from '@/components/welcome'
 import user from '@/components/user/user'
 import permission from '@/components/power/permission'
 import role from '@/components/power/role'
+import hometest from '@/components/hometest'
 Vue.use(Router)
 
 const router = new Router({
@@ -18,8 +19,8 @@ const router = new Router({
     },
     {
       path: '/home',
-      name: 'home',
-      component: home,
+      name: 'hometest',
+      component: hometest,
       redirect: '/welcome',
       children: [
         {
