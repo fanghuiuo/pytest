@@ -143,7 +143,6 @@ export default {
       })
         .then((response) => {
           this.info = response.data
-          console.log(response.data)
         })
         .catch(function (error) { // 请求失败处理
           console.log(error)
@@ -158,8 +157,6 @@ export default {
         ...this.$refs.treeref.getHalfCheckedKeys()]
       if (keys != []) {
         const pmids = keys.join(',')
-        console.log(keys)
-        console.log(pmids)
         this.$axios({
           method: 'put',
           url: '/api/role/' + this.inputroleid,
@@ -202,10 +199,10 @@ export default {
         method: 'get',
         url: '/api/role/' + roleid
       }).then((response) => {
-        // 已有权限打开选中,过滤只要第三级菜单 长度大于8 response.data.pmids.split(',') 是数组 再用filter过滤
-        this.defkeys = response.data.pmids.split(',').filter(item => item.length > 8)
-        console.log(response.data.pmids.split(','))
-        console.log(this.defkeys)
+        if (response.data.pmids != null) {
+          // 已有权限打开选中,过滤只要第三级菜单 长度大于8 response.data.pmids.split(',') 是数组 再用filter过滤
+          this.defkeys = response.data.pmids.split(',').filter(item => item.length > 8)
+        }
       })
     },
     // 得到权限tree
@@ -253,12 +250,11 @@ export default {
     },
     // 初始页currentPage、初始每页数据数pagesize和数据data
     handleSizeChange: function (size) {
-      this.pagesize = size;
+      this.pagesize = size
       nsole.log(this.pagesize) // 每页下拉显示数据
     },
     handleCurrentChange: function(currentPage) {
-      this.currentPage = currentPage;
-      console.log(this.currentPage) // 点击第几页
+      this.currentPage = currentPage // 点击第几页
     },
     // 角色列表加序号字段
     table_index(index) {
@@ -305,7 +301,6 @@ export default {
     },
     // 弹出框 确定按钮 判断 新增角色还是修改角色 执行相应函数
     roleconfirm() {
-      console.log(this.dialogform.id)
       if (this.dialogform.title == '修改角色') {
         this.roleeditput()
       } else {
@@ -356,9 +351,7 @@ export default {
     },
     // 添加角色
     addrole() {
-      console.log(this.dialogform)
       this.$refs.dialogformref.validate(valid => {
-        console.log(valid)
         // 校验不通过 返回
         if (!valid) return
         // 校验通过 先验证角色是否已存在
@@ -370,7 +363,6 @@ export default {
           }
         })
           .then((response) => {
-            console.log(response.data.length)
             if (response.data.length !== 0) {
               // 角色存在 返回
               this.$message.warning('角色已存在 请更换角色名')
@@ -386,7 +378,6 @@ export default {
                 }
               })
                 .then((response) => {
-                  console.log(response)
                   if (response.status == 201) {
                     this.$message.success('新增角色成功')
                     // 成功后隐藏 新增角色弹出框

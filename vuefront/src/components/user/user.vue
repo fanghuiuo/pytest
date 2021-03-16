@@ -61,7 +61,7 @@
                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteuser(scope.row.id)" :disabled="isdeldisabled(scope.row.id)"></el-button>
               </el-tooltip>
               <el-tooltip  effect="dark" content="分配角色" placement="top" :enterable="false">
-                <el-button type="warning" icon="el-icon-setting" size="mini" @click="assignrole"></el-button>
+                <el-button type="warning" icon="el-icon-setting" size="mini" @click="assignrole(scope.row)"></el-button>
               </el-tooltip>
             </template>
           </el-table-column>
@@ -113,22 +113,25 @@
         </span>
       </el-dialog>
       <!--dialo分配角色弹出框 -->
-      <el-dialog :title="分配角色" :visible.sync="roledialogvisible" width="50%" @close="roledialogclose">
-        <el-form :model="roledialogform"   ref="roledialogformref" label-width="70px">
+      <el-dialog title="分配角色" :visible.sync="roledialogvisible" width="50%">
+        <el-form :model="roledialogform" label-width="70px">
            <!--隐藏id字段 -->
           <el-form-item label="roleid" v-show="false">
-            <el-input v-model="dialogform.roleid"></el-input>
+            <el-input v-model="roledialogform.roleid"></el-input>
           </el-form-item>
-          <el-form-item label="用户名" prop="username" >
-            <el-input v-model="dialogform.username" autocomplete="off" disabled="true"></el-input>
+          <el-form-item label="用户名" >
+            <el-input v-model="roledialogform.username"  disabled></el-input>
           </el-form-item>
-          <el-form-item label="原角色" prop="rolename" >
-            <el-input v-model="dialogform.rolename" autocomplete="off" disabled="true"></el-input>
+          <el-form-item label="原角色" >
+            <el-input v-model="roledialogform.rolename" disabled></el-input>
           </el-form-item>
-          <el-form-item label="新角色" width="30px" prop="roleid">
-            <el-select v-model="dialogform.roleid" placeholder="选择角色" >
-              <el-option label="男" value="1"></el-option>
-              <el-option label="女" value="2"></el-option>
+          <el-form-item label="新角色" width="30px" >
+            <el-select v-model="value" placeholder="选择角色" >
+              <el-option v-for="item in roleoptions"
+              :key="item.roleid"
+              :label="item.rolename"
+              :value="item.roleid">
+              </el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -149,13 +152,17 @@ export default {
       totle: 0,
       info: [],
       username: '',
+      // 分配角色select框
+      roleoptions: [],
+      // 分配角色 select 框 绑定值
+      value: '',
       // 添加用户弹出框可见
       adddialogvisible: false,
       // 分配角色弹出框可见
       roledialogvisible: false,
       // 修改时 用户名对话框 不可编辑
       usernamedisabled: false,
-      // 添加用户
+      // 添加用户对话框
       dialogform: {
         id: 0,
         username: '',
@@ -164,6 +171,12 @@ export default {
         usereducation: '',
         userbirthday: '',
         title: '添加用户'
+      },
+      // 分配角色对话框
+      roledialogform: {
+        roleid: 0,
+        username: '',
+        rolename: ''
       },
       dialogformrules: {
         username: [
@@ -239,6 +252,24 @@ export default {
       })
         .then((response) => {
           console.log(response)
+        })
+        .catch(function (error) { // 请求失败处理
+          console.log(error)
+        })
+    },
+    // 分配角色
+    assignrole(row) {
+      this.roledialogvisible = true
+      this.roledialogform.username = row.username
+      this.roledialogform.roleid = row.roleid
+      this.$axios({
+        method: 'get',
+        url: '/api/role/'
+      })
+        .then((response) => {
+          response.data.forEach(element => {
+            this.roleoptions.push({ rolename: element.rolename, roleid: element.roleid })
+          })
         })
         .catch(function (error) { // 请求失败处理
           console.log(error)
