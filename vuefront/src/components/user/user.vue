@@ -115,9 +115,13 @@
       <!--dialo分配角色弹出框 -->
       <el-dialog title="分配角色" :visible.sync="roledialogvisible" width="50%">
         <el-form :model="roledialogform" label-width="70px">
-           <!--隐藏id字段 -->
+           <!--隐藏roleid字段 -->
           <el-form-item label="roleid" v-show="false">
             <el-input v-model="roledialogform.roleid"></el-input>
+          </el-form-item>
+           <!--隐藏userid字段 -->
+          <el-form-item label="userid" v-show="false">
+            <el-input v-model="roledialogform.userid"></el-input>
           </el-form-item>
           <el-form-item label="用户名" >
             <el-input v-model="roledialogform.username"  disabled></el-input>
@@ -137,7 +141,7 @@
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="roledialogvisible = false">取 消</el-button>
-          <el-button type="primary" @click="userconfirm">确 定</el-button>
+          <el-button type="primary" @click="roleconfirm">确 定</el-button>
         </span>
       </el-dialog>
 </div>
@@ -175,6 +179,7 @@ export default {
       // 分配角色对话框
       roledialogform: {
         roleid: 0,
+        userid: 0,
         username: '',
         rolename: ''
       },
@@ -262,6 +267,7 @@ export default {
       this.roledialogvisible = true
       this.roledialogform.username = row.username
       this.roledialogform.roleid = row.roleid
+      this.roledialogform.userid = row.id
       this.$axios({
         method: 'get',
         url: '/api/role/'
@@ -274,6 +280,44 @@ export default {
         .catch(function (error) { // 请求失败处理
           console.log(error)
         })
+        // 原角色名
+        if (this.roledialogform.roleid != '') {
+          this.$axios({
+        method: 'get',
+        url: '/api/role/' + this.roledialogform.roleid
+      })
+        .then((response) => {
+          this.roledialogform.rolename = response.data.rolename
+        })
+        .catch(function (error) { // 请求失败处理
+          console.log(error)
+        })
+        }
+    },
+    // 分配角色弹出框确定按钮
+    roleconfirm() {
+      this.$axios({
+          method: 'put',
+          url: '/api/user/' + this.roledialogform.userid,
+          data: {
+            roleid: this.value
+          }
+        })
+          .then((response) => {
+            if (response.status == 200) {
+              this.$message.success('角色分配成功')
+              // 成功后隐藏 分配角色弹出框
+              this.roledialogvisible = false
+              // 新增用户成功后刷新用户列表
+              this.getlist()
+            } else {
+              this.$message.warning('角色分配失败')
+            }
+          })
+          .catch(function (error) { // 请求失败处理
+            console.log(error)
+            this.$message.error('角色分配产生错误')
+          })
     },
     // 关闭dialog 重置添加用户form
     dialogclose() {
