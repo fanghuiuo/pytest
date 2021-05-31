@@ -1,0 +1,24 @@
+1622186604736	geckodriver	INFO	Listening on 127.0.0.1:4661
+1622186607806	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--private" "--disable-gpu" "ignore-certificate-errors" "--disable-infobars" "-foreground" "-no-remote" "-profile" "C:\\Users\\fangh\\AppData\\Local\\Temp\\rust_mozprofileS11pOK"
+1622186608465	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1622186611001	Marionette	INFO	Listening on port 4669
+1622186611137	Marionette	WARN	TLS certificate errors will be ignored for this session
+1622186612117	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1622186618554	Marionette	INFO	Stopped listening on port 4669
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1622186649905	geckodriver	INFO	Listening on 127.0.0.1:4723
+1622186652964	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--private" "--disable-gpu" "ignore-certificate-errors" "--disable-infobars" "-foreground" "-no-remote" "-profile" "C:\\Users\\fangh\\AppData\\Local\\Temp\\rust_mozprofilePC7g1b"
+1622186653446	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1622186656062	Marionette	INFO	Listening on port 4731
+1622186656142	Marionette	WARN	TLS certificate errors will be ignored for this session
+1622186657078	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1622186661533	Marionette	INFO	Stopped listening on port 4731
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+

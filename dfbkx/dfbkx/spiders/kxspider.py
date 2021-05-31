@@ -1,4 +1,5 @@
 import scrapy
+from ..items import DfbkxItem
 
 
 class KxspiderSpider(scrapy.Spider):
@@ -7,4 +8,4 @@ class KxspiderSpider(scrapy.Spider):
     start_urls = ['http://gsms.csair.com/']
 
     def parse(self, response):
-        pass
+        tflkitem = DfbkxItem()
