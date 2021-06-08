@@ -22,3 +22,15 @@ JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't fin
 
 ###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
 
+1623141637772	geckodriver	INFO	Listening on 127.0.0.1:1116
+1623141640822	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--private" "--disable-gpu" "ignore-certificate-errors" "--disable-infobars" "-foreground" "-no-remote" "-profile" "C:\\Users\\fangh\\AppData\\Local\\Temp\\rust_mozprofileDHK5qS"
+1623141641868	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1623141645302	Marionette	INFO	Listening on port 8136
+1623141645722	Marionette	WARN	TLS certificate errors will be ignored for this session
+1623141646668	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1623141679721	Marionette	INFO	Stopped listening on port 8136
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
